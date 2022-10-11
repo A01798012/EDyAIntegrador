@@ -2,6 +2,10 @@
 
 #include <string>
 #include <iostream>
+#include <map>
+
+map<string, string> meses = {{"Jan", "01"}, {"Feb", "02"}, {"Mar", "03"}, {"Apr", "04"}, {"May", "05"}, {"Jun", "06"}, {"Jul", "07"},
+                             {"Aug", "08"}, {"Sep", "09"}, {"Oct", "10"}, {"Nov", "11"}, {"Dic", "12"}};
 
 using namespace std;
 
@@ -13,31 +17,8 @@ string Bitacora::getDia(){
 }
 
 int Bitacora::generarClave(){
-    if(this->mes == "Jan"){
-        this->mes = "01";
-    }else if(this->mes == "Feb"){
-        this->mes = "02";
-    }else if(this->mes == "Mar"){
-        this->mes = "03";
-    }else if(this->mes == "Apr"){
-        this->mes = "04";
-    }else if(this->mes == "May"){
-        this->mes = "05";
-    }else if(this->mes == "Jun"){
-        this->mes = "06";
-    }else if(this->mes == "Jul"){
-        this->mes = "07";
-    }else if(this->mes == "Aug"){
-        this->mes = "08";
-    }else if(this->mes == "Sep"){
-        this->mes = "09";
-    }else if(this->mes == "Oct"){
-        this->mes = "10";
-    }else if(this->mes == "Nov"){
-        this->mes = "11";
-    }else{
-        this->mes = "12";
-    }
+
+    this->mes = meses[this->mes];
     string concatenado = mes + dia;
     return stoi(concatenado);
 }
