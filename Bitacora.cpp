@@ -18,7 +18,7 @@ string Bitacora::getDia(){
 
 int Bitacora::generarClave(){
 
-    this->mes = meses[this->mes];
+    this->mes = meses[mes];
     string concatenado = mes + dia;
     return stoi(concatenado);
 }
