@@ -16,8 +16,8 @@ class Bitacora{
         string getDia();
         int generarClave();
         int getClave();
-        Bitacora(string m, string d, string h, string ip,
-                 string puer, string pID);
+        Bitacora(string mes, string dia, string hora, string IP,
+                 string puerto, string problemID);
     };
 
 #endif

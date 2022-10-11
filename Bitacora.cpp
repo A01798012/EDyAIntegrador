@@ -6,37 +6,37 @@
 using namespace std;
 
 string Bitacora::getMes(){
-    return mes;
+    return this->mes;
 }
 string Bitacora::getDia(){
-    return dia;
+    return this->dia;
 }
 
 int Bitacora::generarClave(){
-    if(mes == "Jan"){
-        mes = "01";
-    }else if(mes == "Feb"){
-        mes = "02";
-    }else if(mes == "Mar"){
-        mes = "03";
-    }else if(mes == "Apr"){
-        mes = "04";
-    }else if(mes == "May"){
-        mes = "05";
-    }else if(mes == "Jun"){
-        mes = "06";
-    }else if(mes == "Jul"){
-        mes = "07";
-    }else if(mes == "Aug"){
-        mes = "08";
-    }else if(mes == "Sep"){
-        mes = "09";
-    }else if(mes == "Oct"){
-        mes = "10";
-    }else if(mes == "Nov"){
-        mes = "11";
+    if(this->mes == "Jan"){
+        this->mes = "01";
+    }else if(this->mes == "Feb"){
+        this->mes = "02";
+    }else if(this->mes == "Mar"){
+        this->mes = "03";
+    }else if(this->mes == "Apr"){
+        this->mes = "04";
+    }else if(this->mes == "May"){
+        this->mes = "05";
+    }else if(this->mes == "Jun"){
+        this->mes = "06";
+    }else if(this->mes == "Jul"){
+        this->mes = "07";
+    }else if(this->mes == "Aug"){
+        this->mes = "08";
+    }else if(this->mes == "Sep"){
+        this->mes = "09";
+    }else if(this->mes == "Oct"){
+        this->mes = "10";
+    }else if(this->mes == "Nov"){
+        this->mes = "11";
     }else{
-        mes = "12";
+        this->mes = "12";
     }
     string concatenado = mes + dia;
     return stoi(concatenado);
@@ -46,13 +46,13 @@ int Bitacora::getClave(){
     return clave;
 }
 
-Bitacora::Bitacora(string m, string d, string h, string ip,
-                 string puer, string pID){
-    mes = m;
-    dia = d;
-    hora = h;
-    IP = ip;
-    puerto = puer;
-    problemID = pID;
-    clave = generarClave();
+Bitacora::Bitacora(string mes, string dia, string hora, string IP,
+                 string puerto, string problemID){
+    this->mes = mes;
+    this->dia = dia;
+    this->hora = hora;
+    this->IP = IP;
+    this->puerto = puerto;
+    this->problemID = problemID;
+    this->clave = generarClave();
 }
