@@ -1,23 +1,28 @@
 #ifndef BITACORA_H
 #define BITACORA_H
 
+#include <vector>
 #include <string>
+#include "Registro.hpp"
+
 
 using namespace std;
 
 class Bitacora{
     private:
-        string mes, dia, hora, IP, puerto, problemID;
-
-        int clave;
+        vector<Registro*> registros;
+        int particionQuickSort(int inicio, int fin);
+        int busquedaBinaria(int clave, int n);
+        int buscarInicio(int clave, int n);
+        int buscarFinal(int clave, int n);
 
     public:
-        string getMes();
-        string getDia();
-        int generarClave();
-        int getClave();
-        Bitacora(string mes, string dia, string hora, string IP,
-                 string puerto, string problemID);
-    };
+        Bitacora();
+        int getTotalRegistros();
+        void leerArchivo(string direccionArchivo);
+        void ordenarQuickSort(int inicio, int fin);
+        void displayAndWriteAll(string direccionArchivo);
+        void displayAndWriteRange(int fechaInicio, int fechaFin, string direccionArchivo);
+};
 
 #endif
