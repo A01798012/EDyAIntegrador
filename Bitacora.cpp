@@ -73,26 +73,7 @@ int Bitacora::busquedaBinaria(int clave, int n){
     return -1;
 }
 
-int Bitacora::buscarInicio(int clave, int n){
-    for (int i = 0; i < n; i++){
-        if (this->registros[i]->getClave()>=clave){
-            return i;
-        }
-    }
 
-    return -1;
-}
-
-int Bitacora::buscarFinal(int clave, int n){
-
-    for (int i = n - 1; i >= 0; i--) {
-        if (this->registros[i]->getClave()<=clave){
-            return i;
-        }
-    }
-
-    return -1;
-}
 
 
 void Bitacora::displayAndWriteRange(int fechaInicio, int fechaFin, string direccionArchivo){
