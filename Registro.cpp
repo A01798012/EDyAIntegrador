@@ -11,38 +11,22 @@ map<string, string> meses = {{"Jan", "01"}, {"Feb", "02"}, {"Mar", "03"}, {"Apr"
                              {"Aug", "08"}, {"Sep", "09"}, {"Oct", "10"}, {"Nov", "11"}, {"Dec", "12"}};
 
 
-string Registro::getMes(){
-    return this->mes;
-}
-string Registro::getDia(){
-    return this->dia;
-}
-string Registro::getHora(){
-    return this->hora;
-}
-string Registro::getIP(){
-    return this->IP;
-}
-string Registro::getPuerto(){
-    return this->puerto;
-}
-string Registro::getProblemID(){
-    return this->problemID;
-}
+string Registro::getMes(){return this->mes;}
+string Registro::getDia(){return this->dia;}
+string Registro::getHora(){return this->hora;}
+string Registro::getIP(){return this->IP;}
+string Registro::getPuerto(){return this->puerto;}
+string Registro::getProblemID(){return this->problemID;}
+int Registro::getClave(){return this->clave;}
 
 int Registro::generarClave(){
-
     string concatenado = meses[this->mes] + this->dia;
     return stoi(concatenado);
 }
 
-int Registro::getClave(){
-    return this->clave;
-}
 
 
 string Registro::display(){
-
     return (this->getMes() + " " + this->getDia() + " " + this->getHora() + " " + this->getIP() + ":" + this->getPuerto() + " " + this->getProblemID()  + "\n");
 }
 

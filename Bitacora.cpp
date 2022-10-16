@@ -6,13 +6,8 @@
 
 using namespace std;
 
-Bitacora::Bitacora(){
-
-}
-
-int Bitacora::getTotalRegistros(){
-    return this->registros.size();
-}
+Bitacora::Bitacora(){}
+int Bitacora::getTotalRegistros(){return this->registros.size();}
 
 void Bitacora::leerArchivo(string direccionArchivo){
 
@@ -36,9 +31,7 @@ void Bitacora::leerArchivo(string direccionArchivo){
 
 
 int Bitacora::particionQuickSort(int inicio, int fin){
-    
     int pivote = this->registros[inicio]->getClave();
-
     int indicePivote = fin + 1;
 
     for (int j = fin; j > inicio; j--){
@@ -47,31 +40,21 @@ int Bitacora::particionQuickSort(int inicio, int fin){
             std::swap(this->registros[indicePivote], this->registros[j]);
         }
     }
-
     indicePivote--;
-
     std::swap(this->registros[indicePivote], this->registros[inicio]);
-
     return indicePivote;
 }
 
 void Bitacora::ordenarQuickSort(int inicio, int fin){
-
     //Caso recursivo
-
     if (inicio<fin){
-
         int pivote = particionQuickSort(inicio, fin);
-
         // particion izquierda
         ordenarQuickSort(inicio, pivote - 1);
-
         // particion derecha
         ordenarQuickSort(pivote + 1, fin);
     }
-    
 }
-
 
 int Bitacora::busquedaBinaria(int clave, int n){
     int inicio,mitad,fin, valorCentral;
@@ -88,20 +71,6 @@ int Bitacora::busquedaBinaria(int clave, int n){
             inicio=mitad+1;
     }
     return -1;
-}
-
-void Bitacora::displayAndWriteAll(string direccionArchivo){
-
-    ofstream archivo(direccionArchivo);
-    
-    for (int i=0; i < this->registros.size(); i++){
-
-        cout << this->registros[i]->display();
-        archivo << this->registros[i]->display();
-        
-    }
-
-    archivo.close();
 }
 
 int Bitacora::buscarInicio(int clave, int n){
@@ -125,19 +94,41 @@ int Bitacora::buscarFinal(int clave, int n){
     return -1;
 }
 
+
 void Bitacora::displayAndWriteRange(int fechaInicio, int fechaFin, string direccionArchivo){
 
+    int tam = this->getTotalRegistros() - 1;
+
+    if(fechaInicio <= fechaFin && fechaFin <= this->registros[tam]->getClave() && fechaInicio >= this->registros[0]->getClave()){
+        ofstream archivo(direccionArchivo);
+        int indiceInicio = busquedaBinaria(fechaInicio, tam);
+
+        for (int i = indiceInicio; i < tam; i++){
+            if(this->registros[i]->getClave() > fechaFin){
+                break;
+            }else{
+                cout << this->registros[i]->display();
+                archivo << this->registros[i]->display();
+            }
+
+        }
+    }else if(fechaInicio > fechaFin)
+        cout << "ERROR DE FORMATO: La fecha de inicio no puede ser mayor a la fecha final" << endl;
+    else if(fechaFin > this->registros[tam]->getClave())
+        cout << "ERROR DE FORMATO: La fecha final excede la fecha de registros" << endl;
+    else if(fechaInicio < this->registros[0]->getClave())
+        cout << "ERROR DE FORMATO: La fecha de inicio es menor a la fecha de registros" << endl;
+}
+void Bitacora::displayAndWriteAll(string direccionArchivo){
+
     ofstream archivo(direccionArchivo);
-    int indiceInicio = buscarInicio(fechaInicio, this->getTotalRegistros());
-    int indiceFinal = buscarFinal(fechaFin, this->getTotalRegistros());
 
-
-    
-
-    for (int i = indiceInicio; i <= indiceFinal; i++){
+    for (int i=0; i < this->registros.size(); i++){
 
         cout << this->registros[i]->display();
         archivo << this->registros[i]->display();
 
     }
+
+    archivo.close();
 }
