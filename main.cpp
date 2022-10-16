@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
 
-    string archivoLectura = "bitacoraPrincipal.txt";
+    string archivoLectura = "bitacoraSecundaria.txt";
     string archivoBitacoraOrdenada = "ordenamiento.txt";
     string archivoBitacoraBusqueda = "busqueda.txt";
 

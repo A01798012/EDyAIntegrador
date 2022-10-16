@@ -86,7 +86,7 @@ void Bitacora::displayAndWriteRange(int fechaInicio, int fechaFin, string direcc
             fechaInicio++;
         }
 
-        for (int i = indiceInicio; i < tam; i++){
+        for (int i = indiceInicio; i <= tam; i++){
             if(this->registros[i]->getClave() > fechaFin){
                 break;
             }else{
