@@ -59,7 +59,8 @@ void Bitacora::ordenarQuickSort(int inicio, int fin){
 int Bitacora::busquedaBinaria(int clave, int n){
     int inicio,mitad,fin, valorCentral;
     inicio=0;
-    fin=n-1;
+    //ya se le resto uno al size()
+    fin=n;
     while(inicio<=fin){
         mitad=(inicio+fin)/2;
         valorCentral = this->registros[mitad]->getClave();
@@ -73,16 +74,17 @@ int Bitacora::busquedaBinaria(int clave, int n){
     return -1;
 }
 
-
-
-
 void Bitacora::displayAndWriteRange(int fechaInicio, int fechaFin, string direccionArchivo){
 
     int tam = this->getTotalRegistros() - 1;
 
     if(fechaInicio <= fechaFin && fechaFin <= this->registros[tam]->getClave() && fechaInicio >= this->registros[0]->getClave()){
         ofstream archivo(direccionArchivo);
-        int indiceInicio = busquedaBinaria(fechaInicio, tam);
+        int indiceInicio = -1;
+        while(indiceInicio == -1){
+            indiceInicio = busquedaBinaria(fechaInicio, tam);
+            fechaInicio++;
+        }
 
         for (int i = indiceInicio; i < tam; i++){
             if(this->registros[i]->getClave() > fechaFin){

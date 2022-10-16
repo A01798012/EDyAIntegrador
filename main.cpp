@@ -17,21 +17,27 @@ int main() {
 
     cout<<"REGISTROS ORDENADOS:"<<endl;
     bitacora.displayAndWriteAll(archivoBitacoraOrdenada);
+    while(1){
+        cout << endl <<"IMPORTANTE: INGRESA LAS FECHAS SIGUIENDO EL FORMATO MMDD"<<endl;
+        cout << "EJEMPLO: ENERO 26 = 0126"<<endl<<endl;
+        cout << "Si quiere salir del programa escriba -1" << endl;
+        string inicio, fin;
 
-    cout << endl <<"IMPORTANTE: INGRESA LAS FECHAS SIGUIENDO EL FORMATO MMDD"<<endl;
-    cout << "EJEMPLO: ENERO 26 = 0126"<<endl<<endl;
+        cout << "Ingresa la fecha de inicio para la búsqueda: ";
+        cin >> inicio;
+        if(stoi(inicio) == -1)
+            break;
+        cout << "Ingresa la fecha de fin para la búsqueda: ";
+        cin >> fin;
+        if(stoi(fin) == -1)
+            break;
 
-    string inicio, fin;
+        cout << endl;
 
-    cout << "Ingresa la fecha de inicio para la búsqueda: ";
-    cin >> inicio;
-    cout << "Ingresa la fecha de fin para la búsqueda: ";
-    cin >> fin;
+        cout << "MOSTRANDO LOS REGISTROS DEL " << inicio<<" AL "<<fin<< " :"<< endl;
+        bitacora.displayAndWriteRange(stoi(inicio), stoi(fin), archivoBitacoraBusqueda);
 
-    cout << endl;
-
-    cout << "MOSTRANDO LOS REGISTROS DEL " << inicio<<" AL "<<fin<< " :"<< endl;
-    bitacora.displayAndWriteRange(stoi(inicio), stoi(fin), archivoBitacoraBusqueda);
+    }
 
     return 0;
 }
