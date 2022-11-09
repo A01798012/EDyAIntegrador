@@ -3,37 +3,35 @@
 
 using namespace std;
 
-template <typename T>
-class NodoA{
+class Nodo{
     //Atributos
-    T dato;
-    NodoA<T> * siguiente;
-    NodoA<T> * anterior;
+    int valor;
+    Nodo * siguiente;
+    Nodo * anterior;
     public:
         //get
-        T getDato(){return this->dato;}
-        NodoA<T> * getSiguiente(){return this->siguiente;}
-        NodoA<T> * getAnterior(){return this->anterior;}
+        int getValor(){return this->valor;}
+        Nodo * getSiguiente(){return this->siguiente;}
+        Nodo * getAnterior(){return this->anterior;}
         //set
-        void setDato(T dato){this->dato=dato;}
-        void setSiguiente(NodoA<T> * siguiente){this->siguiente=siguiente;}
-        void setAnterior(NodoA<T> * anterior){this->anterior=anterior;}
+        void setValor(int valor){this->valor=valor;}
+        void setSiguiente(Nodo * siguiente){this->siguiente=siguiente;}
+        void setAnterior(Nodo * anterior){this->anterior=anterior;}
         //constructor
-        NodoA(T dato, NodoA<T> * siguiente,NodoA<T> *anterior){
-            this->dato=dato;
+        Nodo(int valor,Nodo * siguiente,Nodo *anterior){
+            this->valor=valor;
             this->siguiente=siguiente;
             this->anterior=anterior;
         }
 };
 
-template <typename T>
 class ListaDL{
-    NodoA<T> * head;
+    Nodo * head;
     int tam;
     public:
-        NodoA<T> * getHead(){return this->head;}
+        Nodo * getHead(){return this->head;}
         int getTam(){return this->tam;}
-        void setHead(NodoA<T> * head){this->head=head;}
+        void setHead(Nodo * head){this->head=head;}
         void setTam(int tam){this->tam=tam;}
 
         ListaDL(){
@@ -41,44 +39,26 @@ class ListaDL{
             this->tam=0;
         }
 
-        void agregarInicio(T valor){
-            NodoA<T> * nuevo=new NodoA<T>(valor,this->getHead(),nullptr); // Creando el nuevo nodo
+        void agregarInicio(int valor){
+            Nodo * nuevo=new Nodo(valor,this->getHead(),nullptr); // Creando el nuevo nodo
             if(this->getHead())
                 this->getHead()->setAnterior(nuevo);
             this->setHead(nuevo); //Actualizar la head de la lista
             this->setTam(this->getTam()+1); //Actualizamos el tamaño
         }
 
-        void agregarFinal(T valor){
-            NodoA<T> * nuevo=new NodoA<T>(valor,nullptr,nullptr);
-            NodoA<T> * elemento=this->getHead();
+        void agregarFinal(int valor){
+            Nodo * nuevo=new Nodo(valor,nullptr,nullptr);
+            Nodo * elemento=this->getHead();
             while(elemento->getSiguiente()){
                elemento=elemento->getSiguiente();
             }
             elemento->setSiguiente(nuevo);
             nuevo->setAnterior(elemento);
-            this->setTam(this->getTam()+1);
         }
-
-        NodoA<T> *read(T dato)//O(n)
-        {
-        NodoA<T> *nodo = this->head;
-        int i = 0;
-        bool existe = false;
-        while (i < tam)
-        {
-            if (nodo->getDato() == dato)
-            {
-                return nodo;
-            }
-            nodo = nodo->getSiguiente();
-            i++;
-        }
-        return nullptr;
-    }
         
         void imprimirLista(){
-            NodoA<T> * elemento=this->getHead();
+            Nodo * elemento=this->getHead();
             while(elemento){
                 cout<<elemento->getValor()<<" ";
                 elemento=elemento->getSiguiente();
@@ -87,7 +67,7 @@ class ListaDL{
         }
 
         void imprimirListaRev(){
-            NodoA<T> * elemento=this->getHead();
+            Nodo * elemento=this->getHead();
             while(elemento->getSiguiente())
                 elemento=elemento->getSiguiente();
             

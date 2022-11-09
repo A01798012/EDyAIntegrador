@@ -1,5 +1,54 @@
 #include <iostream>
 using namespace std;
+/*
+    ListaCDL<Ejemplo> * lista3=new ListaCDL<Ejemplo>();
+    Ejemplo a(12,34);
+    Ejemplo b;
+    lista3->agregarInicio(a);
+    lista3->agregarInicio(b);
+    lista3->imprimirLista();
+
+    ListaCDL<Ejemplo * > * lista4=new ListaCDL<Ejemplo *>();
+    lista4->agregarInicio(new Ejemplo(12,54));
+    lista4->agregarInicio(new Ejemplo());
+    lista4->imprimirListaHeap();
+
+    ListaCDL<Ejemplo * >  lista5;
+    lista5.agregarInicio(new Ejemplo(45,34));
+    lista5.agregarInicio(new Ejemplo());
+    lista5.imprimirListaHeap();
+
+    Ejemplo c(57,23);
+    Ejemplo d;
+    ListaCDL<Ejemplo>  lista6;
+    lista6.agregarInicio(c);
+    lista6.agregarInicio(d);
+    lista6.imprimirLista();
+*/
+class Ejemplo{
+    int dato1;
+    int dato2;
+    public:
+        int getDato1(){return this->dato1;}
+        void setDato1(int dato1){this->dato1=dato1;}
+        int getDato2(){return this->dato2;}
+        void setDato2(int dato2){this->dato2=dato2;}
+        
+        friend ostream& operator<<(ostream& salida, const Ejemplo& objeto){
+            salida<<objeto.dato1<<" "<<objeto.dato2<<endl;
+            return salida;
+        }
+
+        Ejemplo(int dato1,int dato2){
+            this->dato1=dato1;
+            this->dato2=dato2;
+        }
+        Ejemplo(){
+            this->dato1=0;
+            this->dato2=0;
+        }
+
+};
 
 template <typename T>
 class Nodo{
