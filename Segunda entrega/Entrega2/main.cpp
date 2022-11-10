@@ -11,7 +11,7 @@ using namespace std;
 
 int main() {
 
-//    bool flag = true;
+    bool flag = true;
     vector<Registro*> b;
 
     string archivoLectura = "bitacoraPrincipal.txt";
@@ -20,7 +20,7 @@ int main() {
 
     Bitacora bitacora; //En el stack puesto que solo habrá una bitácora
     
-   // b = bitacora.leerArchivo(archivoLectura);
+    b = bitacora.leerArchivo(archivoLectura);
 
     //Ejercicio 1
     
@@ -43,11 +43,16 @@ int main() {
 
     Nodo<Registro *> * elemento = list -> getHead();
     for(int i = 0; i < list ->getTam(); i++){
-        cout << elemento -> getDato() -> display();
+        cout << elemento -> getDato() -> display(); 
         elemento = elemento -> getSiguiente();
     }
 
     // Comparamos y ponemos los datos
+
+    //list = lista que tiene todos los registros
+    //fail = lista que tiene los errores, sus ocurrencias generales y por mes
+    //pointer = apuntador a la lista con todos los registros o list
+    //point = apuntador a la lista con los fallos o fail
 
     Nodo<Registro *> * pointer = list -> getHead();
     fail -> agregarInicio(new Falla(pointer -> getDato() -> getProblemID(), 1));
@@ -55,36 +60,34 @@ int main() {
 
     NodoA<Falla *> * point = fail -> getHead();
 
-    cout << endl;
 
     bool fg = true;
     int a = 0;
     string hi, original, nuevo;
 
     for(int i = 0; i < list -> getTam()-1; i++){
-        //cout << "*********************** "<< "i: " << i << " ***********************"<<endl;
+        //Este for checa la lista con todos los registros
         for(int j = 0; j < fail -> getTam(); j++){
-            //cout << "j: " << j << endl;
-            
+            //Este for checa la lista con todos las fallas
             original = pointer -> getDato() -> getProblemID();
             nuevo = point -> getDato() -> getNombre();
 
-            /*cout << original + "." << endl;
-            cout << nuevo + "."<< endl;
-            cout << (original == nuevo) << endl;
-            cout << endl;*/
-            if(original == nuevo){ //(pointer -> getDato() -> getProblemID()) == (point -> getDato() ->getNombre())){
+            if(original == nuevo){
                 //cout << "IF"<< endl;
+                //Este if hace que si el dato ya existe le agrege uno al general
                 a = point -> getDato() ->getNum() + 1;
                 point -> getDato() -> setNum(a);
+                //Le pasa el mes y aumenta un valor de ese
+                point -> getDato() -> modificarValor(pointer -> getDato() -> getMes());
                 fg = false;
             }         
             point = point -> getSiguiente();
         }
         if (fg){
-                hi = pointer -> getDato() -> getProblemID();
-                fail ->agregarFinal(new Falla(hi, 1));  
-            }
+            //Si el error no esta lo agrega
+            hi = pointer -> getDato() -> getProblemID();
+            fail ->agregarFinal(new Falla(hi, 1));  
+        }
         pointer = pointer -> getSiguiente();
         point = fail -> getHead();
         fg = true;
@@ -94,14 +97,17 @@ int main() {
 
     NodoA<Falla *> * help = fail -> getHead();
 
+    //Imprime ya las ocurrencias, con el total
     for(int k = 0; k < fail -> getTam(); k++){
         cout << "Error: " << help -> getDato() ->getNombre() << endl;
         cout << "Cant: " << help -> getDato() ->getNum() << endl;
+        help ->getDato() ->  imprimirMes();
         cout << endl;
         help = help -> getSiguiente();
     }
     
-    
+    Nodo<Registro *> * pp = list -> getHead();
+    cout << pp -> getDato() -> getMes() << endl;
 
     /////////////////////////////////////////////////////////////////////
     /**
