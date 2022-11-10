@@ -19,7 +19,7 @@ class Bitacora{
     public:
         Bitacora();
         int getTotalRegistros();
-        void leerArchivo(string direccionArchivo);
+        vector<Registro*> leerArchivo(string direccionArchivo);
         void ordenarQuickSort(int inicio, int fin);
         void displayAndWriteAll(string direccionArchivo);
         void displayAndWriteRange(int fechaInicio, int fechaFin, string direccionArchivo);

@@ -110,6 +110,19 @@ class ListaCDL{
             }   
         }
 
+        Nodo<T> *read(T dato){
+            Nodo<T> *nodo = this->head;
+            int i = 0;
+            bool existe = false;
+            while (i < tam){
+                if (nodo->getDato() == dato){
+                    return nodo;
+                }
+                nodo = nodo->getSiguiente();
+                i++;
+            }
+            return nullptr;
+    }
 
 };
 

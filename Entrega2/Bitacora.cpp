@@ -9,7 +9,7 @@ using namespace std;
 Bitacora::Bitacora(){}
 int Bitacora::getTotalRegistros(){return this->registros.size();}
 
-void Bitacora::leerArchivo(string direccionArchivo){
+vector<Registro*> Bitacora::leerArchivo(string direccionArchivo){
 
     ifstream datos;
     datos.open(direccionArchivo);
@@ -26,7 +26,7 @@ void Bitacora::leerArchivo(string direccionArchivo){
     }
 
     datos.close();
-
+    return registros;
 }
 
 
@@ -86,7 +86,7 @@ void Bitacora::displayAndWriteRange(int fechaInicio, int fechaFin, string direcc
             fechaInicio++;
         }
 
-        for (int i = indiceInicio; i < tam; i++){
+        for (int i = indiceInicio; i <= tam; i++){
             if(this->registros[i]->getClave() > fechaFin){
                 break;
             }else{
@@ -115,3 +115,5 @@ void Bitacora::displayAndWriteAll(string direccionArchivo){
 
     archivo.close();
 }
+
+
