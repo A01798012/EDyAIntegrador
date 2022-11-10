@@ -11,10 +11,9 @@ using namespace std;
 
 int main() {
 
-    bool flag = true;
     vector<Registro*> b;
 
-    string archivoLectura = "bitacoraPrincipal.txt";
+    string archivoLectura = "bitacoraSecundaria.txt";
     string archivoBitacoraOrdenada = "ordenamiento.txt";
     string archivoBitacoraBusqueda = "busqueda.txt";
 
@@ -37,6 +36,7 @@ int main() {
         getline(datos,ip,':');
         getline(datos,puerto,' ');
         getline(datos,falla);
+        //TODO quiza agregarInicio en vez de lo de abajo
         list -> agregarFinal(new Registro(mes,dia,hora,ip,puerto,falla));
     }
     datos.close();
@@ -51,14 +51,14 @@ int main() {
 
     //list = lista que tiene todos los registros
     //fail = lista que tiene los errores, sus ocurrencias generales y por mes
-    //pointer = apuntador a la lista con todos los registros o list
-    //point = apuntador a la lista con los fallos o fail
+    //pRegistroCDL = apuntador a la lista con todos los registros o list
+    //pFallaDL = apuntador a la lista con los fallos o fail
 
-    Nodo<Registro *> * pointer = list -> getHead();
-    fail -> agregarInicio(new Falla(pointer -> getDato() -> getProblemID(), 1));
-    pointer = pointer -> getSiguiente();
+    Nodo<Registro *> * pRegistroCDL = list -> getHead();
+    fail -> agregarInicio(new Falla(pRegistroCDL -> getDato() -> getProblemID(), 1));
+    pRegistroCDL = pRegistroCDL -> getSiguiente();
 
-    NodoA<Falla *> * point = fail -> getHead();
+    NodoA<Falla *> * pFallaDL = fail -> getHead();
 
 
     bool fg = true;
@@ -69,27 +69,29 @@ int main() {
         //Este for checa la lista con todos los registros
         for(int j = 0; j < fail -> getTam(); j++){
             //Este for checa la lista con todos las fallas
-            original = pointer -> getDato() -> getProblemID();
-            nuevo = point -> getDato() -> getNombre();
+            original = pRegistroCDL -> getDato() -> getProblemID();
+            nuevo = pFallaDL -> getDato() -> getNombre();
 
             if(original == nuevo){
                 //cout << "IF"<< endl;
                 //Este if hace que si el dato ya existe le agrege uno al general
-                a = point -> getDato() ->getNum() + 1;
-                point -> getDato() -> setNum(a);
+                a = pFallaDL -> getDato() ->getNum() + 1;
+                pFallaDL -> getDato() -> setNum(a);
                 //Le pasa el mes y aumenta un valor de ese
-                point -> getDato() -> modificarValor(pointer -> getDato() -> getMes());
+                pFallaDL -> getDato() -> modificarValor(pRegistroCDL -> getDato() -> getMes());
                 fg = false;
             }         
-            point = point -> getSiguiente();
+            pFallaDL = pFallaDL -> getSiguiente();
         }
         if (fg){
             //Si el error no esta lo agrega
-            hi = pointer -> getDato() -> getProblemID();
-            fail ->agregarFinal(new Falla(hi, 1));  
+            hi = pRegistroCDL -> getDato() -> getProblemID();
+            fail ->agregarFinal(new Falla(hi, 1));
+
+            //pRegistroCDL -> getDato() -> modificarValor(pRegistroCDL -> getDato() -> getMes());
         }
-        pointer = pointer -> getSiguiente();
-        point = fail -> getHead();
+        pRegistroCDL = pRegistroCDL -> getSiguiente();
+        pFallaDL = fail -> getHead();
         fg = true;
     }
 
