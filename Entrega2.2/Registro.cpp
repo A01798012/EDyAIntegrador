@@ -20,13 +20,15 @@ string Registro::getProblemID(){return this->problemID;}
 int Registro::getClave(){return this->clave;}
 
 int Registro::generarClave(){
+/*Función para generar y devolver un int con la clave del registro (mes+día)*/
+
     string concatenado = meses[this->mes] + this->dia;
     return stoi(concatenado);
 }
 
-
-
 string Registro::display(){
+/*Función para generar y devolver un string con toda la info del registro*/
+
     return (this->getMes() + " " + this->getDia() + " " + this->getHora() + " " + this->getIP() + ":" + this->getPuerto() + " " + this->getProblemID()  + "\n");
 }
 

@@ -1,15 +1,23 @@
 #include "Bitacora.hpp"
 #include "Registro.hpp"
+#include "Nodo.hpp"
+#include "Falla.hpp"
 #include <fstream>
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-Bitacora::Bitacora(){}
-int Bitacora::getTotalRegistros(){return this->registros.size();}
+Bitacora::Bitacora(){
+    this->registros = new ListaCDL<Registro *>();
+    this->fallas = new ListaDL<Falla *>();
+}
+
+int Bitacora::getTotalRegistros(){return this->registros->getTam();}
 
 void Bitacora::leerArchivo(string direccionArchivo){
+/*Función para leer un archivo .txt y almacenar los registros en la
+lista circular doblemente ligada (registros) de la bitacora */
 
     ifstream datos;
     datos.open(direccionArchivo);
@@ -21,97 +29,105 @@ void Bitacora::leerArchivo(string direccionArchivo){
         getline(datos,hora,' ');
         getline(datos,ip,':');
         getline(datos,puerto,' ');
-        getline(datos,falla);//TODO modificar a lista doble circular
-        this->registros.push_back(new Registro(mes,dia,hora,ip,puerto,falla));
+        getline(datos, falla);
+
+        if (falla.back()=='\r'){
+            falla.pop_back();
+        }
+        this->registros->agregarFinal(new Registro(mes,dia,hora,ip,puerto,falla));
     }
 
     datos.close();
 
 }
 
+void Bitacora::almacenarFallas(){
+/*Función para almacenar los distintos tipos de fallas en la
+lista doblemente ligada (fallas) conforme los registros almacenados en la
+lista circular doblemente ligada (registros)
+Si ya existe un fallo del mismo tipo (mensaje), simplemente se manda a
+aumentar la ocurrencia conforme el mes
+Si no existe un fallo del mismo tipo (mensaje), se crea un nuevo tipo
+de fallo y se agrega a la lista de fallos (con su mes inicial)*/
 
-int Bitacora::particionQuickSort(int inicio, int fin){
-    int pivote = this->registros[inicio]->getClave();
-    int indicePivote = fin + 1;
+    Nodo <Registro *> * registroActual = this->registros->getHead();
 
-    for (int j = fin; j > inicio; j--){
-        if (this->registros[j]->getClave() > pivote){
-            indicePivote--;
-            std::swap(this->registros[indicePivote], this->registros[j]);
-        }
-    }
-    indicePivote--;
-    std::swap(this->registros[indicePivote], this->registros[inicio]);
-    return indicePivote;
-}
+    for (int i = 0; i < this->getTotalRegistros(); i++){
 
-void Bitacora::ordenarQuickSort(int inicio, int fin){
-    //Caso recursivo
-    if (inicio<fin){
-        int pivote = particionQuickSort(inicio, fin);
-        // particion izquierda
-        ordenarQuickSort(inicio, pivote - 1);
-        // particion derecha
-        ordenarQuickSort(pivote + 1, fin);
-    }
-}
+        bool yaExisteFalla=false;
 
-int Bitacora::busquedaBinaria(int clave, int n){
-    int inicio,mitad,fin, valorCentral;
-    inicio=0;
-    //ya se le resto uno al size()
-    fin=n;
-    while(inicio<=fin){
-        mitad=(inicio+fin)/2;
-        valorCentral = this->registros[mitad]->getClave();
-        if(clave==valorCentral)
-            return mitad;
-        else if(clave<valorCentral) //izq
-            fin=mitad-1;
-        else //der
-            inicio=mitad+1;
-    }
-    return -1;
-}
+        Nodo <Falla *> *fallaActual = this->fallas->getHead();
 
-void Bitacora::displayAndWriteRange(int fechaInicio, int fechaFin, string direccionArchivo){
+        for (int j = 0; j < this->fallas->getTam(); j++){
+            
+            if (registroActual->getDato()->getProblemID()==fallaActual->getDato()->getMensaje()){
 
-    int tam = this->getTotalRegistros() - 1;
-
-    if(fechaInicio <= fechaFin && fechaFin <= this->registros[tam]->getClave() && fechaInicio >= this->registros[0]->getClave()){
-        ofstream archivo(direccionArchivo);
-        int indiceInicio = -1;
-        while(indiceInicio == -1){
-            indiceInicio = busquedaBinaria(fechaInicio, tam);
-            fechaInicio++;
-        }
-
-        for (int i = indiceInicio; i <= tam; i++){
-            if(this->registros[i]->getClave() > fechaFin){
+                yaExisteFalla=true;
+                fallaActual->getDato()->agregarOcurrencia(registroActual->getDato()->getMes());
                 break;
-            }else{
-                cout << this->registros[i]->display();
-                archivo << this->registros[i]->display();
             }
 
+            fallaActual = fallaActual->getSiguiente();
         }
-    }else if(fechaInicio > fechaFin)
-        cout << "ERROR DE FORMATO: La fecha de inicio no puede ser mayor a la fecha final" << endl;
-    else if(fechaFin > this->registros[tam]->getClave())
-        cout << "ERROR DE FORMATO: La fecha final excede la fecha de registros" << endl;
-    else if(fechaInicio < this->registros[0]->getClave())
-        cout << "ERROR DE FORMATO: La fecha de inicio es menor a la fecha de registros" << endl;
+
+        if (!yaExisteFalla){
+
+            Falla * nuevaFalla = new Falla(registroActual->getDato()->getMes(), registroActual->getDato()->getProblemID());
+            this->fallas->agregarInicio(nuevaFalla);
+        }
+
+        registroActual=registroActual->getSiguiente();
+    }
 }
-void Bitacora::displayAndWriteAll(string direccionArchivo){
+
+void Bitacora::imprimirYGuardarPorFalla(string tipoDeFalla, string direccionArchivo){
+/*Función para imprimir en terminal y guardar en un archivo todas
+las ocurrencias de un tipo de falla en específico de la bitacora*/
+
+    Nodo<Falla *> *fallaActual = this->fallas->getHead();
 
     ofstream archivo(direccionArchivo);
 
-    for (int i=0; i < this->registros.size(); i++){
 
-        cout << this->registros[i]->display();
-        archivo << this->registros[i]->display();
+    for (int i = 0; i < this->fallas->getTam(); i++) {
 
+        if (fallaActual->getDato()->getMensaje()==tipoDeFalla){
+
+            cout << fallaActual->getDato()->display();
+            archivo << fallaActual->getDato()->display();
+
+            archivo.close();
+            return;
+        }
+
+        fallaActual=fallaActual->getSiguiente();
     }
 
+    
+    cout << "No existe ningún registro con la falla: " << tipoDeFalla << endl;
+    archivo << "No existe ningún registro con la falla: " << tipoDeFalla << endl;
+
     archivo.close();
+}
+
+void Bitacora::imprimirYGuardarPorHora(string hora, string direccionArchivo){
+/*Función para imprimir en terminal y guardar en un archivo todos
+los registros de la bitacora que sucedieron en una hora en específico*/
+
+    Nodo<Registro *> *registroActual = this->registros->getHead();
+
+    ofstream archivo(direccionArchivo);
+
+    for (int i = 0; i < this->getTotalRegistros(); i++){
+
+        string horaRegistroActual = registroActual->getDato()->getHora().substr(0, 2);
+
+        if (horaRegistroActual==hora){
+            cout << registroActual->getDato()->display();
+            archivo << registroActual->getDato()->display();
+        }
+
+        registroActual=registroActual->getSiguiente();
+
+    }
 }

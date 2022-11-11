@@ -10,6 +10,11 @@ class Falla{
         int cantidad;
         int ocurrenciasPorMes[12] = {0};
     public:
+        Falla();
+        Falla(string mesFallaInicial, string mensaje);
+        string getMensaje();
+        void agregarOcurrencia(string mesDeLaFalla);
+        string display();
 };
 
 #endif

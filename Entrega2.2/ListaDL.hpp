@@ -60,7 +60,7 @@ class ListaDL{
         void imprimirLista(){
             Nodo<T> * elemento=this->getHead();
             while(elemento){
-                cout<<elemento->getValor()<<" ";
+                cout<<elemento->getDato()<<" ";
                 elemento=elemento->getSiguiente();
             }
             cout<<endl;
