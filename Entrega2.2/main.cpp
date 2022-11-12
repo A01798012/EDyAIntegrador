@@ -7,6 +7,7 @@ using namespace std;
 
 int main() {
 
+//    string archivoLectura = "bitacoraSecundaria.txt";
     string archivoLectura = "bitacoraPrincipal.txt";
     string archivoConsultaPorFalla = "consultaPorFalla.txt";
     string archivoConsultaPorHora = "consultaPorHora.txt";
@@ -20,6 +21,8 @@ int main() {
 
     // PUNTOS 3 y 4:
     string fallaPedida;
+    cout << "Los tipos de fallas son:\n\n";
+    bitacora.imprimirFallas();
     cout << "Ingrese el tipo de falla a buscar: ";
     getline(cin, fallaPedida);
     cout << endl;

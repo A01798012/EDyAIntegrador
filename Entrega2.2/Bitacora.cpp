@@ -97,7 +97,7 @@ las ocurrencias de un tipo de falla en específico de la bitacora*/
             archivo << fallaActual->getDato()->display();
 
             archivo.close();
-            return;
+            return; //TODO para que este return?
         }
 
         fallaActual=fallaActual->getSiguiente();
@@ -108,6 +108,14 @@ las ocurrencias de un tipo de falla en específico de la bitacora*/
     archivo << "No existe ningún registro con la falla: " << tipoDeFalla << endl;
 
     archivo.close();
+}
+void Bitacora::imprimirFallas(){
+    Nodo<Falla*> * fallaActual = this->fallas->getHead();
+    for(int i = 0; i < this->fallas->getTam(); i++){
+        cout << fallaActual->getDato()->getMensaje() << "\n";
+        fallaActual = fallaActual->getSiguiente();
+    }
+    cout << "\n";
 }
 
 void Bitacora::imprimirYGuardarPorHora(string hora, string direccionArchivo){
