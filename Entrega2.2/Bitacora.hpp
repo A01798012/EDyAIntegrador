@@ -23,6 +23,7 @@ class Bitacora{
         void imprimirYGuardarPorFalla(string tipoDeFalla, string direccionArchivo);
         void imprimirYGuardarPorHora(string hora, string direccionArchivo);
         void imprimirFallas();
+        void imprimirRegistros();
 };
 
 #endif

@@ -16,6 +16,9 @@ int main() {
     Bitacora bitacora; // En el stack puesto que solo habrá una bitácora
     bitacora.leerArchivo(archivoLectura);
 
+    //IMPRIME REGISTRO
+    bitacora.imprimirRegistros();
+
     // PUNTO 2:
     bitacora.almacenarFallas();
 

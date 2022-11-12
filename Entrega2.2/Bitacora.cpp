@@ -149,3 +149,16 @@ Complejidad: O(n)
 
     }
 }
+
+void Bitacora::imprimirRegistros(){
+    /*Esta funcion imprime los registros
+    Complejidad = O(n)
+    */
+    Nodo<Registro *> *registroActual = this->registros->getHead();
+    for(int i = 0; i < this -> registros -> getTam(); i++){
+        cout << registroActual -> getDato() ->display();
+        registroActual = registroActual -> getSiguiente();
+    }
+    cout<<endl;
+
+}

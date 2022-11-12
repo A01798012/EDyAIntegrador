@@ -1,14 +1,1 @@
-Error: Failed password for illegal user guest
-Ocurrencias totales: 2
-Enero: 0
-Febrero: 0
-Marzo: 0
-Abril: 0
-Mayo: 0
-Junio: 0
-Julio: 0
-Agosto: 0
-Septiembre: 0
-Octumbre: 0
-Noviembre: 1
-Diciembre: 1
+No existe ningún registro con la falla: [A[A
