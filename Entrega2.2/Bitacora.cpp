@@ -17,7 +17,9 @@ int Bitacora::getTotalRegistros(){return this->registros->getTam();}
 
 void Bitacora::leerArchivo(string direccionArchivo){
 /*Función para leer un archivo .txt y almacenar los registros en la
-lista circular doblemente ligada (registros) de la bitacora */
+lista circular doblemente ligada (registros) de la bitacora 
+Complejidad: O(n)
+*/
 
     ifstream datos;
     datos.open(direccionArchivo);
@@ -48,7 +50,9 @@ lista circular doblemente ligada (registros)
 Si ya existe un fallo del mismo tipo (mensaje), simplemente se manda a
 aumentar la ocurrencia conforme el mes
 Si no existe un fallo del mismo tipo (mensaje), se crea un nuevo tipo
-de fallo y se agrega a la lista de fallos (con su mes inicial)*/
+de fallo y se agrega a la lista de fallos (con su mes inicial)
+Complejidad: O(n^2)
+*/
 
     Nodo <Registro *> * registroActual = this->registros->getHead();
 
@@ -82,7 +86,9 @@ de fallo y se agrega a la lista de fallos (con su mes inicial)*/
 
 void Bitacora::imprimirYGuardarPorFalla(string tipoDeFalla, string direccionArchivo){
 /*Función para imprimir en terminal y guardar en un archivo todas
-las ocurrencias de un tipo de falla en específico de la bitacora*/
+las ocurrencias de un tipo de falla en específico de la bitacora
+Complejidad: O(n)
+*/
 
     Nodo<Falla *> *fallaActual = this->fallas->getHead();
 
@@ -97,7 +103,7 @@ las ocurrencias de un tipo de falla en específico de la bitacora*/
             archivo << fallaActual->getDato()->display();
 
             archivo.close();
-            return; //TODO para que este return?
+            return; 
         }
 
         fallaActual=fallaActual->getSiguiente();
@@ -109,7 +115,9 @@ las ocurrencias de un tipo de falla en específico de la bitacora*/
 
     archivo.close();
 }
-void Bitacora::imprimirFallas(){
+
+void Bitacora::imprimirFallas(){ 
+    //Complejidad: O(n)
     Nodo<Falla*> * fallaActual = this->fallas->getHead();
     for(int i = 0; i < this->fallas->getTam(); i++){
         cout << fallaActual->getDato()->getMensaje() << "\n";
@@ -120,7 +128,9 @@ void Bitacora::imprimirFallas(){
 
 void Bitacora::imprimirYGuardarPorHora(string hora, string direccionArchivo){
 /*Función para imprimir en terminal y guardar en un archivo todos
-los registros de la bitacora que sucedieron en una hora en específico*/
+los registros de la bitacora que sucedieron en una hora en específico
+Complejidad: O(n)
+*/
 
     Nodo<Registro *> *registroActual = this->registros->getHead();
 

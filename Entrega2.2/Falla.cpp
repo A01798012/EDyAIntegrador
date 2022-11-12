@@ -16,7 +16,9 @@ string Falla::getMensaje() { return this->mensaje; }
 void Falla::agregarOcurrencia(string mesDeLaFalla){
 /*Función para agregar una ocurrencia a un tipo de falla
 Se aumenta en uno la cantidad de ocurrencias totales
-Se aumenta en uno la cantidad de ocurrencias del mes en el array ocurrenciasPorMes*/
+Se aumenta en uno la cantidad de ocurrencias del mes en el array ocurrenciasPorMes
+Complejidad: O(1)
+*/
 
     this->cantidad += 1;
 
@@ -72,7 +74,9 @@ Se aumenta en uno la cantidad de ocurrencias del mes en el array ocurrenciasPorM
 
 string Falla::display(){
 /*Función para generar y devolver un string con toda la info
-del tipo de falla (ocurrencias totales y ocurrencias por mes)*/
+del tipo de falla (ocurrencias totales y ocurrencias por mes)
+Complejidad: O(1)
+*/
 
     string mensaje = "";
 
