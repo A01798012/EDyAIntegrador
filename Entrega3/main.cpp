@@ -38,8 +38,18 @@ int main(){
     arbol1->eliminarNodo(13);
     arbol1->imprimirInOrder();
     arbol1->eliminarNodo(33);
+    cout << "Altura: " << arbol1 ->height() << endl;
     arbol1->imprimirInOrder();
     arbol1->eliminarNodo(17);
+
+    arbol1->eliminarNodo(44);
+    arbol1->imprimirPreOrder();
+    arbol1->eliminarNodo(40);
+    arbol1->imprimirPreOrder();
+    arbol1->whatLevelAmI(10);
+    arbol1->whatLevelAmI(25);
+    arbol1->whatLevelAmI(21);
+    cout << "Altura: " << arbol1 ->height() << endl;
 
 
    

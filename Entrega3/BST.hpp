@@ -64,6 +64,11 @@ class BST{
             return nullptr;
         }
 
+        void whatLevelAmI(T dato){
+            NodoBST<T>* nodo = this->buscarNodo(dato);
+            cout << "El dato " << dato << " se encuentra en el nivel: " << nodo->getNivel() << "\n";
+        }
+
         void imprimirPreOrder(){
             NodoBST<T>::recorridoPreOrden(this->raiz);
             cout<<endl;
