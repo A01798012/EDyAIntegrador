@@ -73,13 +73,15 @@ int main(){
     arbol4->whatLevelAmI(1);
     arbol4->whatLevelAmI(0);
     arbol4->whatLevelAmI(-2);
+    cout<< "La altura del arbol es:" << arbol4 -> height() << endl;
+
 
     arbol4->eliminarNodo(38);
 
     arbol4->whatLevelAmI(1);
     arbol4->whatLevelAmI(0);
     arbol4->whatLevelAmI(-2);
-
+    cout<< "La altura del arbol es:" << arbol4 -> height() << endl;
    
 
     return 0;
