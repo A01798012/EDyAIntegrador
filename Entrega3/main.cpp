@@ -27,6 +27,7 @@ int main(){
     arbol->imprimirInOrder();
     arbol->imprimirPostOrder();
     */
+    /*
     cout << "Altura: " << arbol1 ->getAltura() << endl;
     arbol1->agregarNodo(44);
     cout << "Altura: " << arbol1 ->getAltura() << endl;
@@ -51,8 +52,19 @@ int main(){
     arbol1->whatLevelAmI(21);
     cout << "Altura: " << arbol1 ->getAltura() << endl;
     arbol1->whatLevelAmI(2991);
+    */
+    arbol4->agregarNodo(-100);
+    arbol4->imprimirPreOrder();
+    arbol4->whatLevelAmI(-66);
+    arbol4->whatLevelAmI(-69);
+    arbol4->whatLevelAmI(-100);
+    arbol4->whatLevelAmI(-52);
 
+    arbol4->eliminarNodo(-66);
 
+    arbol4->whatLevelAmI(-69);
+    arbol4->whatLevelAmI(-100);
+    arbol4->whatLevelAmI(-52);
    
 
     return 0;

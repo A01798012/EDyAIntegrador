@@ -89,6 +89,16 @@ class BST{
             NodoBST<T>::recorridoPostOrden(this->raiz);
             cout<<endl;
         }
+        void recorrido(NodoBST<T> * actual){
+            //Funcion para recorrer todo el arbol a partir de cierto nodo y
+            //actualizar su nivel. Esta funcion se usara dentro de la funcion
+            //eliminarNodo() para bajar el nivel de los nodo en caso de ser necesario
+            if(actual){
+                actual->setNivel(actual->getNivel() - 1);
+                recorrido(actual->getIzq());
+                recorrido(actual->getDer());
+            }
+        };
 
         void eliminarNodo(T dato){
             NodoBST<T> * eliminar = this->buscarNodo(dato);
@@ -117,10 +127,12 @@ class BST{
                     else if(padre->getIzq()==eliminar){ //El nodo cono un hijo a eliminar es el izq
                         padre->setIzq(eliminar->getIzq()?eliminar->getIzq():eliminar->getDer());
                         //TODO hay que bajar un nuvel todo el arbol a partir del borrado
+                        recorrido(eliminar);
                     }
                     else{
                         padre->setDer(eliminar->getIzq()?eliminar->getIzq():eliminar->getDer());
                         //TODO hay que bajar un nuvel todo el arbol a partir del borrado
+                        recorrido(eliminar);
                     }
                     delete eliminar;
                 //Caso 3: eliminar nodo con 2 hijos (predecesor)
@@ -128,13 +140,25 @@ class BST{
                     NodoBST<T> * predecesor = NodoBST<T>::valorMayor(eliminar->getIzq());
                     eliminar->setDato(predecesor->getDato());
                     if(predecesor->getPadre()->getIzq()==predecesor){ //el predecesor es hijo izq
-                        predecesor->getPadre()->setIzq(predecesor->getIzq()?predecesor->getIzq():nullptr);
-                        //TODO hay que recorrer y bajar un nivel todo el lado
-                        //izq, si es que lo hay
+                        //predecesor->getPadre()->setIzq(predecesor->getIzq()?predecesor->getIzq():nullptr);
+                        if(predecesor->getIzq()){
+                            predecesor->getPadre()->setIzq(predecesor->getIzq());
+                            //TODO hay que recorrer y bajar un nivel todo el lado
+                            //izq, si es que lo hay
+                            recorrido(predecesor->getIzq());
+                        }else{
+                            predecesor->getPadre()->setIzq(nullptr);
+                        }
                     }else{
                         predecesor->getPadre()->setDer(predecesor->getIzq()?predecesor->getIzq():nullptr);
-                        //TODO hay que recorrer y bajar un nivel todo el lado
-                        //izq, si es que lo hay
+                        if(predecesor->getIzq()){
+                            predecesor->getPadre()->setDer(predecesor->getIzq());
+                            //TODO hay que recorrer y bajar un nivel todo el lado
+                            //izq, si es que lo hay
+                            recorrido(predecesor->getIzq());
+                        }else{
+                            predecesor->getPadre()->setDer(nullptr);
+                        }
                     }
                     delete predecesor;
                 }
