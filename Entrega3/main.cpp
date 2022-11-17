@@ -1,5 +1,5 @@
 #include "BST.hpp"
-
+//hola
 
 int main(){
     BST<int> * arbol1 = new BST<int>();
