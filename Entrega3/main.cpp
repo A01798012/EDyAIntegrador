@@ -50,6 +50,7 @@ int main(){
     arbol1->whatLevelAmI(25);
     arbol1->whatLevelAmI(21);
     cout << "Altura: " << arbol1 ->getAltura() << endl;
+    arbol1->whatLevelAmI(2991);
 
 
    

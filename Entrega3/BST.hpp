@@ -38,11 +38,14 @@ class BST{
                             actual=actual->getDer();
                     }
                     //En esta linea modificamos para que el nivel siempre sea el del padre +1
-                    padre->getDato()>dato?padre->setIzq(new NodoBST<T>(padre,dato,(padre->getNivel())+1)):padre->setDer(new NodoBST<T>(padre,dato,(padre->getNivel())+1));
+                    padre->getDato()>dato?padre->setIzq(new NodoBST<T>(padre,dato,(padre->getNivel())+1)):
+                        padre->setDer(new NodoBST<T>(padre,dato,(padre->getNivel())+1));
+
                     this->numNodos++;
                     //Si el nivel del nodo agregado es mayor a la altura agragarlo
-                    if(buscarNodo(dato)->getNivel() > altura){
-                        altura = buscarNodo(dato)->getNivel();
+                    //TODO siento que no es la mejor forma de hacerlo
+                    if(this->buscarNodo(dato)->getNivel() > altura){
+                        this->altura = this->buscarNodo(dato)->getNivel();
                     }
                 }
             }else{ //Arbol esta vacio
@@ -66,7 +69,10 @@ class BST{
 
         void whatLevelAmI(T dato){
             NodoBST<T>* nodo = this->buscarNodo(dato);
-            cout << "El dato " << dato << " se encuentra en el nivel: " << nodo->getNivel() << "\n";
+            if(nodo)
+                cout << "El dato " << dato << " se encuentra en el nivel: " << nodo->getNivel() << "\n";
+            else
+                cout << -1 << "\n";
         }
 
         void imprimirPreOrder(){
@@ -91,6 +97,7 @@ class BST{
                 //Establecer el nodo padre
                 padre=eliminar->getPadre();
                 //Caso 1: eliminar un nodo hoja
+                //No se modifica la altura de ningun nodo
                 if(!eliminar->getIzq()&&!eliminar->getDer()){
                     //Actualizar la referencia del padre
                     if(!padre) //Si el nodo a borrar es la raiz
@@ -103,12 +110,18 @@ class BST{
                 //Caso 2: nodo con un hijo            
                 }else if((eliminar->getIzq()&&!eliminar->getDer())||(!eliminar->getIzq()&&eliminar->getDer())){
                     //Actualizar los apuntadores
-                    if(!padre)
+                    if(!padre){
                         this->raiz=eliminar->getIzq()?eliminar->getIzq():eliminar->getDer();
-                    else if(padre->getIzq()==eliminar) //El nodo cono un hijo a eliminar es el izq
+                        this->raiz->setNivel(0);
+                    }
+                    else if(padre->getIzq()==eliminar){ //El nodo cono un hijo a eliminar es el izq
                         padre->setIzq(eliminar->getIzq()?eliminar->getIzq():eliminar->getDer());
-                    else
+                        //TODO hay que bajar un nuvel todo el arbol a partir del borrado
+                    }
+                    else{
                         padre->setDer(eliminar->getIzq()?eliminar->getIzq():eliminar->getDer());
+                        //TODO hay que bajar un nuvel todo el arbol a partir del borrado
+                    }
                     delete eliminar;
                 //Caso 3: eliminar nodo con 2 hijos (predecesor)
                 }else{
@@ -116,8 +129,12 @@ class BST{
                     eliminar->setDato(predecesor->getDato());
                     if(predecesor->getPadre()->getIzq()==predecesor){ //el predecesor es hijo izq
                         predecesor->getPadre()->setIzq(predecesor->getIzq()?predecesor->getIzq():nullptr);
+                        //TODO hay que recorrer y bajar un nivel todo el lado
+                        //izq, si es que lo hay
                     }else{
                         predecesor->getPadre()->setDer(predecesor->getIzq()?predecesor->getIzq():nullptr);
+                        //TODO hay que recorrer y bajar un nivel todo el lado
+                        //izq, si es que lo hay
                     }
                     delete predecesor;
                 }
