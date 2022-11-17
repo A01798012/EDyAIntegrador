@@ -54,6 +54,7 @@ int main(){
     arbol1->whatLevelAmI(2991);
     */
     arbol4->agregarNodo(-100);
+    arbol4->agregarNodo(0);
     arbol4->imprimirPreOrder();
     arbol4->whatLevelAmI(-66);
     arbol4->whatLevelAmI(-69);
@@ -65,6 +66,20 @@ int main(){
     arbol4->whatLevelAmI(-69);
     arbol4->whatLevelAmI(-100);
     arbol4->whatLevelAmI(-52);
+
+    cout << "\n";
+
+    arbol4->whatLevelAmI(38);
+    arbol4->whatLevelAmI(1);
+    arbol4->whatLevelAmI(0);
+    arbol4->whatLevelAmI(-2);
+
+    arbol4->eliminarNodo(38);
+
+    arbol4->whatLevelAmI(1);
+    arbol4->whatLevelAmI(0);
+    arbol4->whatLevelAmI(-2);
+
    
 
     return 0;
