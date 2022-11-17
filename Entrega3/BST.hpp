@@ -1,4 +1,6 @@
 #include "NodoBST.hpp"
+#include <unordered_set>
+#include <queue>
 
 template <typename T>
 class BST{
@@ -11,6 +13,31 @@ class BST{
             this->raiz=nullptr;
             this->numNodos=0;
             this->altura=0;
+        }
+        void hallarAltura(){
+            //Funcion que recorre todo el arbol para encontrar cual es la altura
+            //maxima
+            int max = 0;
+            if(this->raiz){
+                unordered_set<int> niveles;
+                queue<NodoBST<T>*> cola;
+                cola.push(this->raiz);
+                while(!cola.empty()){
+                    niveles.insert(cola.front()->getNivel());
+                    if(cola.front()->getIzq())
+                        cola.push(cola.front()->getIzq());
+                    if(cola.front()->getDer())
+                        cola.push(cola.front()->getDer());
+                    cola.pop();
+                }
+                for(int x: niveles){
+                    if(x > max)
+                        max = x;
+                }
+            }else {
+                max = 0;
+            }
+            this->altura = max;
         }
 
         //getters y setters        
@@ -51,7 +78,8 @@ class BST{
             }else{ //Arbol esta vacio
                 this->raiz= new NodoBST<T>(nullptr,dato,0);
                 this->numNodos++;
-            } 
+            }
+            this->hallarAltura();
         }
 
         NodoBST<T> * buscarNodo(T dato){
@@ -165,6 +193,7 @@ class BST{
                 this->numNodos--;
             }else
                 cout<<"Valor a eliminar inexistente"<<endl;    
+            this->hallarAltura();
         }
 
         int height(){
