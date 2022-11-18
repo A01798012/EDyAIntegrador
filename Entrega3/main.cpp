@@ -1,5 +1,5 @@
 #include "BST.hpp"
-
+//hola
 
 int main(){
     BST<int> * arbol1 = new BST<int>();
@@ -27,7 +27,7 @@ int main(){
     arbol->imprimirInOrder();
     arbol->imprimirPostOrder();
     */
-    /*
+
     cout << "Altura: " << arbol1 ->getAltura() << endl;
     arbol1->agregarNodo(44);
     cout << "Altura: " << arbol1 ->getAltura() << endl;
@@ -36,9 +36,14 @@ int main(){
     arbol1->imprimirPostOrder();
     arbol1->eliminarNodo(18);
     arbol1->imprimirInOrder();
+    arbol1->whatLevelAmI(10);
     arbol1->eliminarNodo(13);
+    arbol1->whatLevelAmI(10);
     arbol1->imprimirInOrder();
+    cout << "------------\n";
+    arbol1->whatLevelAmI(44);
     arbol1->eliminarNodo(33);
+    arbol1->whatLevelAmI(44);
     cout << "Altura: " << arbol1 ->getAltura() << endl;
     arbol1->imprimirInOrder();
     arbol1->eliminarNodo(17);
@@ -52,9 +57,16 @@ int main(){
     arbol1->whatLevelAmI(21);
     cout << "Altura: " << arbol1 ->getAltura() << endl;
     arbol1->whatLevelAmI(2991);
-    */
+
+
+    /*
+    cout << "Altura: " << arbol4 ->getAltura() << endl;
     arbol4->agregarNodo(-100);
+    cout << "Altura: " << arbol4 ->getAltura() << endl;
+
     arbol4->agregarNodo(0);
+    cout << "Altura: " << arbol4 ->getAltura() << endl;
+
     arbol4->imprimirPreOrder();
     arbol4->whatLevelAmI(-66);
     arbol4->whatLevelAmI(-69);
@@ -78,10 +90,13 @@ int main(){
 
     arbol4->eliminarNodo(38);
 
+    cout << "Altura: " << arbol4 ->getAltura() << endl;
     arbol4->whatLevelAmI(1);
     arbol4->whatLevelAmI(0);
     arbol4->whatLevelAmI(-2);
-    cout<< "La altura del arbol es:" << arbol4 -> height() << endl;
+    */
+
+
    
 
     return 0;
