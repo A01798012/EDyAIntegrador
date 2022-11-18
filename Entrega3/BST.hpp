@@ -1,6 +1,7 @@
 #include "NodoBST.hpp"
 #include <unordered_set>
 #include <queue>
+#include <vector>
 
 template <typename T>
 class BST{
@@ -191,10 +192,37 @@ class BST{
                     delete predecesor;
                 }
                 this->numNodos--;
+                alturaMax();
             }else
                 cout<<"Valor a eliminar inexistente"<<endl;    
             this->hallarAltura();
         }
+
+        void meterAlturas(vector<int> &niveles, NodoBST<T> * actual){
+            /*Esta función agrega todas las alturas en un vector*/
+            int mayor = 0;
+            if(actual){
+                niveles.push_back(actual->getNivel());
+                meterAlturas(niveles,actual->getIzq());
+                meterAlturas(niveles,actual->getDer());
+            }
+        }
+
+        void alturaMax(){
+        /*En esta funcion sacamos la altura maxima del arbol sacandola del vector que
+        nos regresa la función meter alturas y edita la altura del arbol*/
+            vector<int> niveles;
+            NodoBST<T> * actual = this -> raiz;
+            meterAlturas(niveles, actual);
+            int mayor = 0;
+            for(int i = 0; i<niveles.size(); i++){
+                if(mayor<niveles[i]){
+                    mayor = niveles[i];
+                }
+            }
+            altura = mayor;
+        }
+
 
         int height(){
             return altura;
