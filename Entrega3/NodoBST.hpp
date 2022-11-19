@@ -1,4 +1,5 @@
 #include<iostream>
+#include<queue>
 using namespace std;
 
 template <typename T>
@@ -54,6 +55,20 @@ class NodoBST{
                 recorridoPostOrden(actual->getIzq());
                 recorridoPostOrden(actual->getDer());
                 cout<<actual->getDato()<<" ";
+            }
+        }
+        static void recorridoLevelByLevel(NodoBST<T>* raiz){
+            if(raiz){
+                queue<NodoBST<T>*> cola;
+                cola.push(raiz);
+                while(!cola.empty()){
+                    if(cola.front()->getIzq())
+                        cola.push(cola.front()->getIzq());
+                    if(cola.front()->getDer())
+                        cola.push(cola.front()->getDer());
+                    cout << cola.front()->getDato() << " ";
+                    cola.pop();
+                }
             }
         }
 

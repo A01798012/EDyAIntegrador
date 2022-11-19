@@ -80,7 +80,6 @@ class BST{
                 this->raiz= new NodoBST<T>(nullptr,dato,0);
                 this->numNodos++;
             }
-            this->hallarAltura();
         }
 
         NodoBST<T> * buscarNodo(T dato){
@@ -105,17 +104,25 @@ class BST{
         }
 
         void imprimirPreOrder(){
+            cout << "PreOrden: ";
             NodoBST<T>::recorridoPreOrden(this->raiz);
             cout<<endl;
         }
         
         void imprimirInOrder(){
+            cout << "InOrden: ";
             NodoBST<T>::recorridoInOrden(this->raiz);
             cout<<endl;
         }
         
         void imprimirPostOrder(){
+            cout << "PostOrden: ";
             NodoBST<T>::recorridoPostOrden(this->raiz);
+            cout<<endl;
+        }
+        void imprimirLevelByLevel(){
+            cout << "Por Nivel: ";
+            NodoBST<T>::recorridoLevelByLevel(this->raiz);
             cout<<endl;
         }
         void recorrido(NodoBST<T> * actual){
@@ -192,15 +199,13 @@ class BST{
                     delete predecesor;
                 }
                 this->numNodos--;
-                alturaMax();
+                this->hallarAltura();
             }else
                 cout<<"Valor a eliminar inexistente"<<endl;    
-            this->hallarAltura();
         }
 
         void meterAlturas(vector<int> &niveles, NodoBST<T> * actual){
             /*Esta función agrega todas las alturas en un vector*/
-            int mayor = 0;
             if(actual){
                 niveles.push_back(actual->getNivel());
                 meterAlturas(niveles,actual->getIzq());

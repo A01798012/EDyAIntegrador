@@ -15,18 +15,8 @@ int main(){
     for(int i = 0; i <  10; i++) arbol2->agregarNodo(a2[i]);
     for(int i = 0; i <  10; i++) arbol3->agregarNodo(a3[i]);
     for(int i = 0; i <  15; i++) arbol4->agregarNodo(a4[i]);
-    /*arbol->agregarNodo(21);
-    arbol->agregarNodo(13);
-    arbol->agregarNodo(10);
-    arbol->agregarNodo(18);
-    arbol->agregarNodo(33);
-    arbol->agregarNodo(25);
-    arbol->agregarNodo(40);
 
-    arbol->imprimirPreOrder();
-    arbol->imprimirInOrder();
-    arbol->imprimirPostOrder();
-    */
+    cout << "######################### EJEMPLO 1 #########################\n";
 
     cout << "Altura: " << arbol1 ->getAltura() << endl;
     arbol1->agregarNodo(44);
@@ -35,11 +25,11 @@ int main(){
     arbol1->imprimirInOrder();
     arbol1->imprimirPostOrder();
     arbol1->eliminarNodo(18);
-    arbol1->imprimirInOrder();
+    arbol1->imprimirLevelByLevel();
     arbol1->whatLevelAmI(10);
     arbol1->eliminarNodo(13);
     arbol1->whatLevelAmI(10);
-    arbol1->imprimirInOrder();
+    arbol1->imprimirLevelByLevel();
     cout << "------------\n";
     arbol1->whatLevelAmI(44);
     arbol1->eliminarNodo(33);
@@ -57,7 +47,11 @@ int main(){
     arbol1->whatLevelAmI(21);
     cout << "Altura: " << arbol1 ->getAltura() << endl;
     arbol1->whatLevelAmI(2991);
+    arbol1->imprimirLevelByLevel();
 
+    cout << "######################### EJEMPLO 2 #########################\n";
+    cout << "######################### EJEMPLO 3 #########################\n";
+    cout << "######################### EJEMPLO 4 #########################\n";
 
     /*
     cout << "Altura: " << arbol4 ->getAltura() << endl;
