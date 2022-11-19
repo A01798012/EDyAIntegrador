@@ -80,6 +80,7 @@ class BST{
                 this->raiz= new NodoBST<T>(nullptr,dato,0);
                 this->numNodos++;
             }
+            cout <<dato<< " agregado \n";
         }
 
         NodoBST<T> * buscarNodo(T dato){
@@ -200,6 +201,7 @@ class BST{
                 }
                 this->numNodos--;
                 this->hallarAltura();
+                cout << dato << " eliminado\n";
             }else
                 cout<<"Valor a eliminar inexistente"<<endl;    
         }
