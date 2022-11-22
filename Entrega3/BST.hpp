@@ -253,7 +253,7 @@ class BST{
             if(dato == 1)
                 imprimirPreOrder();
             else if(dato == 2)
-                imprimirInOrder();
+                imprimirPostOrder();
             else if(dato == 3)
                 imprimirLevelByLevel();
             else
