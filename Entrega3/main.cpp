@@ -15,10 +15,9 @@ int main(){
 
 
     cout << "############  ARBOL 1 ############\n";
-    arbol1->imprimirPreOrder();
-    arbol1->imprimirInOrder();
-    arbol1->imprimirPostOrder();
-    arbol1->imprimirLevelByLevel();
+    arbol1-> visit(1);
+    arbol1-> visit(2);
+    arbol1-> visit(3);
     cout << endl;
     cout << "Altura: " << arbol1 ->getAltura() << endl;
     cout << "El sucesor del 33 es: " << arbol1->sucesor(33)->getDato() << endl;
@@ -26,10 +25,9 @@ int main(){
     cout << endl;
 
     arbol1->eliminarNodo(33);
-    arbol1->imprimirPreOrder();
-    arbol1->imprimirInOrder();
-    arbol1->imprimirPostOrder();
-    arbol1->imprimirLevelByLevel();
+    arbol1-> visit(1);
+    arbol1-> visit(2);
+    arbol1-> visit(3);
     cout << "Altura: " << arbol1 ->getAltura() << endl;
     cout << "El sucesor del 25 es: " << arbol1->sucesor(25)->getDato() << endl;
     arbol1->whatLevelAmI(25); // 2 WLA
@@ -37,10 +35,9 @@ int main(){
 
     arbol1->whatLevelAmI(40);
     arbol1->eliminarNodo(25);
-    arbol1->imprimirPreOrder();
-    arbol1->imprimirInOrder();
-    arbol1->imprimirPostOrder();
-    arbol1->imprimirLevelByLevel();
+    arbol1-> visit(1);
+    arbol1-> visit(2);
+    arbol1-> visit(3);
     cout << "Altura: " << arbol1 ->getAltura() << endl; // 2 A
     cout << "El sucesor del 13 es: " << arbol1->sucesor(13)->getDato() << endl; // 2 S
     cout << "El sucesor del 21 es: " << arbol1->sucesor(21)->getDato() << endl; // 3 S
@@ -49,10 +46,9 @@ int main(){
 
     arbol1->eliminarNodo(18);
     arbol1->eliminarNodo(10);
-    arbol1->imprimirPreOrder();
-    arbol1->imprimirInOrder();
-    arbol1->imprimirPostOrder();
-    arbol1->imprimirLevelByLevel();
+    arbol1-> visit(1);
+    arbol1-> visit(2);
+    arbol1-> visit(3);
     cout << "Altura: " << arbol1 ->getAltura() << endl; // 2 A
     arbol1->sucesor(13);
     cout << "El sucesor del 21 es: " << arbol1->sucesor(21)->getDato() << endl; // 3 S

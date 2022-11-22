@@ -249,4 +249,15 @@ class BST{
             return altura;
         }
 
+        void visit(int dato){
+            if(dato == 1)
+                imprimirPreOrder();
+            else if(dato == 2)
+                imprimirInOrder();
+            else if(dato == 3)
+                imprimirLevelByLevel();
+            else
+                cout << "Opcion no valida" << endl;
+        }
+
 };
