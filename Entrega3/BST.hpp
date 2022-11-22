@@ -80,7 +80,6 @@ class BST{
                 this->raiz= new NodoBST<T>(nullptr,dato,0);
                 this->numNodos++;
             }
-            cout <<dato<< " agregado \n";
         }
 
         NodoBST<T> * buscarNodo(T dato){
@@ -229,7 +228,22 @@ class BST{
             }
             altura = mayor;
         }
-
+        NodoBST<T> *sucesor(T dato){
+            NodoBST<T> *actual = this->buscarNodo(dato);
+            actual = actual->getDer();
+            {
+                if (actual){
+                    // cout << "spi entra" << endl;
+                    while (actual->getIzq()){
+                        // cout << "entra al while" << endl;
+                        actual = actual->getIzq();
+                    }
+                }
+                else
+                    cout << dato << " no cuenta con sucesor" << endl;
+            }
+            return actual;
+        }
 
         int height(){
             return altura;
