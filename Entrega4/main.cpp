@@ -1,42 +1,56 @@
 #include <iostream>
 #include <string>
-
 #include "Bitacora.hpp"
+
 
 using namespace std;
 
 int main() {
 
+//    string archivoLectura = "bitacoraPrincipal.txt";
     string archivoLectura = "bitacoraSecundaria.txt";
-    string archivoBitacoraOrdenada = "ordenamiento.txt";
-    string archivoBitacoraBusqueda = "busqueda.txt";
+    string archivoConsultaPorFalla = "consultaPorFalla.txt";
+    string archivoConsultaPorHora = "consultaPorHora.txt";
 
-    Bitacora bitacora; //En el stack puesto que solo habrá una bitácora
+    // PUNTO 1:
+    Bitacora bitacora; // En el stack puesto que solo habrá una bitácora
     bitacora.leerArchivo(archivoLectura);
-    bitacora.ordenarQuickSort(0, bitacora.getTotalRegistros()-1);
 
-    cout<<"REGISTROS ORDENADOS:"<<endl;
-    bitacora.displayAndWriteAll(archivoBitacoraOrdenada);
-    while(1){
-        cout << endl <<"IMPORTANTE: INGRESA LAS FECHAS SIGUIENDO EL FORMATO MMDD"<<endl;
-        cout << "EJEMPLO: ENERO 26 = 0126"<<endl<<endl;
-        cout << "Si quiere salir del programa escriba -1" << endl;
-        string inicio, fin;
+    //IMPRIME REGISTRO
+    bitacora.imprimirRegistros();
 
-        cout << "Ingresa la fecha de inicio para la búsqueda: ";
-        cin >> inicio;
-        if(stoi(inicio) == -1)
-            break;
-        cout << "Ingresa la fecha de fin para la búsqueda: ";
-        cin >> fin;
-        if(stoi(fin) == -1)
-            break;
+    // PUNTO 2:
+    bitacora.almacenarFallas();
 
+    // PUNTOS 3 y 4:
+    bool flag = true;
+    while(flag){
+        
+        string fallaPedida;
+        cout << "Los tipos de fallas son:\n\n";
+        bitacora.imprimirFallas();
+        cout << "Ingrese el tipo de falla a buscar(digite -1 para salir): ";
+        getline(cin, fallaPedida);
+        if(fallaPedida == "-1"){
+            flag = false;
+        }else{
+            cout << endl;
+            bitacora.imprimirYGuardarPorFalla(fallaPedida, archivoConsultaPorFalla);
+        }
+    }
+
+    // PUNTOS 5 Y 6:
+    bool flag2 = true;
+    while(flag2){
+        string horaPedida;
+        cout << endl << "Ingrese la hora a buscar (01,13,21, etc o digite -1 para salir): ";
+        cin >> horaPedida;
+        if(horaPedida == "-1") {
+            flag2 = false;
+        }else{
         cout << endl;
-
-        cout << "MOSTRANDO LOS REGISTROS DEL " << inicio<<" AL "<<fin<< " :"<< endl;
-        bitacora.displayAndWriteRange(stoi(inicio), stoi(fin), archivoBitacoraBusqueda);
-
+        bitacora.imprimirYGuardarPorHora(horaPedida, archivoConsultaPorHora);
+        }
     }
 
     return 0;

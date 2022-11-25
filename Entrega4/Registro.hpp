@@ -1,5 +1,5 @@
-#ifndef REGISTRO_H
-#define REGISTRO_H
+#ifndef REGISTRO_HPP_
+#define REGISTRO_HPP_
 
 #include <string>
 
