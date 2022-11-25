@@ -35,7 +35,7 @@ class NodoBST{
         }
 
         static void recorridoPreOrden(NodoBST<T> * actual){
-            if(actual){
+            if(actual){//O(n)
                 cout<<actual->getDato()<<" ";
                 recorridoPreOrden(actual->getIzq());
                 recorridoPreOrden(actual->getDer());
@@ -43,7 +43,7 @@ class NodoBST{
         }
 
         static void recorridoInOrden(NodoBST<T> * actual){
-            if(actual){
+            if(actual){//O(n)
                 recorridoInOrden(actual->getIzq());
                 cout<<actual->getDato()<<" ";
                 recorridoInOrden(actual->getDer());
@@ -51,14 +51,14 @@ class NodoBST{
         }
 
         static void recorridoPostOrden(NodoBST<T> * actual){
-            if(actual){
+            if(actual){//O(n)
                 recorridoPostOrden(actual->getIzq());
                 recorridoPostOrden(actual->getDer());
                 cout<<actual->getDato()<<" ";
             }
         }
         static void recorridoLevelByLevel(NodoBST<T>* raiz){
-            if(raiz){
+            if(raiz){//O(n)
                 queue<NodoBST<T>*> cola;
                 cola.push(raiz);
                 while(!cola.empty()){
@@ -72,7 +72,7 @@ class NodoBST{
             }
         }
 
-        static NodoBST<T> * valorMayor(NodoBST<T> *actual){
+        static NodoBST<T> * valorMayor(NodoBST<T> *actual){//O(n)
             if(actual)
                 while(actual->getDer())
                     actual=actual->getDer();

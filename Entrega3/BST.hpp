@@ -95,7 +95,7 @@ class BST{
             return nullptr;
         }
 
-        void whatLevelAmI(T dato){
+        void whatLevelAmI(T dato){//O(1)
             NodoBST<T>* nodo = this->buscarNodo(dato);
             if(nodo)
                 cout << "El dato " << dato << " se encuentra en el nivel: " << nodo->getNivel() << "\n";
@@ -103,24 +103,24 @@ class BST{
                 cout << -1 << "\n";
         }
 
-        void imprimirPreOrder(){
+        void imprimirPreOrder(){//O(n)
             cout << "PreOrden: ";
             NodoBST<T>::recorridoPreOrden(this->raiz);
             cout<<endl;
         }
         
-        void imprimirInOrder(){
+        void imprimirInOrder(){//O(n)
             cout << "InOrden: ";
             NodoBST<T>::recorridoInOrden(this->raiz);
             cout<<endl;
         }
         
-        void imprimirPostOrder(){
+        void imprimirPostOrder(){//O(n)
             cout << "PostOrden: ";
             NodoBST<T>::recorridoPostOrden(this->raiz);
             cout<<endl;
         }
-        void imprimirLevelByLevel(){
+        void imprimirLevelByLevel(){//O(n)
             cout << "Por Nivel: ";
             NodoBST<T>::recorridoLevelByLevel(this->raiz);
             cout<<endl;
@@ -207,14 +207,14 @@ class BST{
 
         void meterAlturas(vector<int> &niveles, NodoBST<T> * actual){
             /*Esta función agrega todas las alturas en un vector*/
-            if(actual){
+            if(actual){//O(n)
                 niveles.push_back(actual->getNivel());
                 meterAlturas(niveles,actual->getIzq());
                 meterAlturas(niveles,actual->getDer());
             }
         }
 
-        void alturaMax(){
+        void alturaMax(){//O(n)
         /*En esta funcion sacamos la altura maxima del arbol sacandola del vector que
         nos regresa la función meter alturas y edita la altura del arbol*/
             vector<int> niveles;
@@ -228,14 +228,12 @@ class BST{
             }
             altura = mayor;
         }
-        NodoBST<T> *sucesor(T dato){
+        NodoBST<T> *sucesor(T dato){ //O(n)
             NodoBST<T> *actual = this->buscarNodo(dato);
             actual = actual->getDer();
             {
                 if (actual){
-                    // cout << "spi entra" << endl;
                     while (actual->getIzq()){
-                        // cout << "entra al while" << endl;
                         actual = actual->getIzq();
                     }
                 }
@@ -245,11 +243,11 @@ class BST{
             return actual;
         }
 
-        int height(){
+        int height(){//O(1)
             return altura;
         }
 
-        void visit(int dato){
+        void visit(int dato){//O(1)
             if(dato == 1)
                 imprimirPreOrder();
             else if(dato == 2)
