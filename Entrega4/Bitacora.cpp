@@ -84,6 +84,14 @@ Complejidad: O(n^2)
     }
 }
 
+void Bitacora::almacenarDireccionesIp(){
+    Nodo<Registro *> *registroActual = this->registros->getHead();
+    for(int i = 0; i < this->getTotalRegistros(); i++){
+        bool yaExisteIp = false;
+        Ip* ipActual = this->direccionesIp[0]; // TODO 
+    }
+}
+
 void Bitacora::imprimirYGuardarPorFalla(string tipoDeFalla, string direccionArchivo){
 /*Función para imprimir en terminal y guardar en un archivo todas
 las ocurrencias de un tipo de falla en específico de la bitacora
