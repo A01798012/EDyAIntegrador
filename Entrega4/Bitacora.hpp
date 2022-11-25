@@ -16,7 +16,7 @@ class Bitacora{
     private:
         ListaCDL<Registro*> * registros;
         ListaDL<Falla*> * fallas;
-        vector<Ip*> direccionesIp;
+        ListaDL<Ip*>* direccionesIp;
 
 
     public:

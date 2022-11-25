@@ -85,10 +85,33 @@ Complejidad: O(n^2)
 }
 
 void Bitacora::almacenarDireccionesIp(){
-    Nodo<Registro *> *registroActual = this->registros->getHead();
-    for(int i = 0; i < this->getTotalRegistros(); i++){
-        bool yaExisteIp = false;
-        Ip* ipActual = this->direccionesIp[0]; // TODO 
+    Nodo <Registro *> * registroActual = this->registros->getHead();
+
+    for (int i = 0; i < this->getTotalRegistros(); i++){
+
+        bool yaExisteFalla=false;
+
+        Nodo <Ip *> *ipActual = this->direccionesIp->getHead();
+
+        for (int j = 0; j < this->fallas->getTam(); j++){
+            
+            if (registroActual->getDato()->getIP()==ipActual->getDato()->getdireccionIp()){
+
+                yaExisteFalla=true;
+                ipActual->getDato()->setCantidad(ipActual->getDato()->getCanidad()+1);
+                break;
+            }
+
+            ipActual = ipActual->getSiguiente();
+        }
+
+        if (!yaExisteFalla){
+
+            Ip * nuevaIp = new Ip(registroActual->getDato()->getIP(), 1);
+            this->direccionesIp->agregarInicio(nuevaIp);
+        }
+
+        registroActual=registroActual->getSiguiente();
     }
 }
 

@@ -15,6 +15,7 @@ class Ip{
         }
         string getdireccionIp(){ return this->direccionIp; }
         int getCanidad(){ return this->cantidad; }
+        void setCantidad(int cantidad){ this->cantidad = cantidad; }
 
 };
 #endif
