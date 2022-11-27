@@ -1,7 +1,5 @@
 #include "Bitacora.hpp"
-#include "Registro.hpp"
-#include "Nodo.hpp"
-#include "Falla.hpp"
+
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -11,6 +9,7 @@ using namespace std;
 Bitacora::Bitacora(){
     this->registros = new ListaCDL<Registro *>();
     this->fallas = new ListaDL<Falla *>();
+    this->direccionesIp = new ListaDL<Ip*>();
 }
 
 int Bitacora::getTotalRegistros(){return this->registros->getTam();}
@@ -85,35 +84,28 @@ Complejidad: O(n^2)
 }
 
 void Bitacora::almacenarDireccionesIp(){
+    
     Nodo <Registro *> * registroActual = this->registros->getHead();
-
     for (int i = 0; i < this->getTotalRegistros(); i++){
-
         bool yaExisteFalla=false;
-
         Nodo <Ip *> *ipActual = this->direccionesIp->getHead();
-
-        for (int j = 0; j < this->fallas->getTam(); j++){
-            
-            if (registroActual->getDato()->getIP()==ipActual->getDato()->getdireccionIp()){
-
+        for (int j = 0; j < this->direccionesIp->getTam(); j++){ 
+            if (registroActual->getDato()->getIP()==ipActual->getDato()->getDireccionIp()){
                 yaExisteFalla=true;
-                ipActual->getDato()->setCantidad(ipActual->getDato()->getCanidad()+1);
+                ipActual->getDato()->setCantidad(ipActual->getDato()->getCantidad()+1);
                 break;
             }
-
             ipActual = ipActual->getSiguiente();
         }
-
         if (!yaExisteFalla){
-
-            Ip * nuevaIp = new Ip(registroActual->getDato()->getIP(), 1);
+            Ip * nuevaIp = new Ip(registroActual->getDato()->getIP());
             this->direccionesIp->agregarInicio(nuevaIp);
         }
-
         registroActual=registroActual->getSiguiente();
     }
 }
+
+
 
 void Bitacora::imprimirYGuardarPorFalla(string tipoDeFalla, string direccionArchivo){
 /*Función para imprimir en terminal y guardar en un archivo todas
@@ -155,6 +147,13 @@ void Bitacora::imprimirFallas(){
         fallaActual = fallaActual->getSiguiente();
     }
     cout << "\n";
+}
+void Bitacora::imprimirDireccionesIp(){ 
+    Nodo<Ip*>* ipActual = this->direccionesIp->getHead();
+    while(ipActual){
+        cout << ipActual->getDato()->getDireccionIp() << ": " << ipActual->getDato()->getCantidad() << endl;
+        ipActual = ipActual->getSiguiente();
+    }
 }
 
 void Bitacora::imprimirYGuardarPorHora(string hora, string direccionArchivo){
