@@ -8,6 +8,8 @@
 #include "ListaDL.hpp"
 #include "Falla.hpp"
 #include "Ip.hpp"
+#include "Acceso.hpp"
+#include "BST.hpp"
 
 
 using namespace std;
@@ -17,6 +19,7 @@ class Bitacora{
         ListaCDL<Registro*> * registros;
         ListaDL<Falla*> * fallas;
         ListaDL<Ip*>* direccionesIp;
+        BST<Acceso*> * cantidadDeAccesos;
 
 
     public:
@@ -30,6 +33,7 @@ class Bitacora{
         void imprimirFallas();
         void imprimirDireccionesIp();
         void imprimirRegistros();
+        void ordenarAccesos();
 };
 
 #endif

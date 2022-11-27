@@ -10,6 +10,7 @@ Bitacora::Bitacora(){
     this->registros = new ListaCDL<Registro *>();
     this->fallas = new ListaDL<Falla *>();
     this->direccionesIp = new ListaDL<Ip*>();
+    this->cantidadDeAccesos = new BST<Acceso *>();
 }
 
 int Bitacora::getTotalRegistros(){return this->registros->getTam();}
@@ -50,7 +51,7 @@ Si ya existe un fallo del mismo tipo (mensaje), simplemente se manda a
 aumentar la ocurrencia conforme el mes
 Si no existe un fallo del mismo tipo (mensaje), se crea un nuevo tipo
 de fallo y se agrega a la lista de fallos (con su mes inicial)
-Complejidad: O(n^2)
+Complejidad: O(n x m)
 */
 
     Nodo <Registro *> * registroActual = this->registros->getHead();
@@ -84,7 +85,9 @@ Complejidad: O(n^2)
 }
 
 void Bitacora::almacenarDireccionesIp(){
-    
+    /*Función que almacena las direcciones de Ip en una LDL y cuenta cuantas Ip iguales hay
+    Complejidad : O(n x m)
+    */
     Nodo <Registro *> * registroActual = this->registros->getHead();
     for (int i = 0; i < this->getTotalRegistros(); i++){
         bool yaExisteFalla=false;
