@@ -8,10 +8,13 @@ class Ip{
         string direccionIp;
         int cantidad; 
     public:
-        Ip(string direccionIp);
-        string getDireccionIp();
-        int getCantidad();
-        void setCantidad(int cantidad);
+        Ip(string direccionIp){
+            this->direccionIp = direccionIp;
+            this->cantidad = 1;
+        };
+        string getDireccionIp(){return this->direccionIp;}
+        int getCantidad(){return this->cantidad;}
+        void setCantidad(int cantidad){this->cantidad = cantidad;}
 
 };
 #endif
