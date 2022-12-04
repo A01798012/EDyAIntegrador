@@ -45,7 +45,9 @@ class Bitacora{
         void imprimirFallasGeneradas(){
             this->grafoDeIps->imprimirMasFallasGeneradas();
         }
-
+        void DFS(){
+            this -> grafoDeIps ->DepthFirst(grafoDeIps->getLista()->getHead()->getDato());
+        }
 
 
 };

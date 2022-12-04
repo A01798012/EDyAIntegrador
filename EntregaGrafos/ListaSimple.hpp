@@ -1,3 +1,6 @@
+#ifndef LISTASIMPLE_HPP
+#define LISTASIMPLE_HPP
+
 #include "NodoT.hpp"
 template <typename T>
 class ListaSimple{
@@ -71,3 +74,5 @@ class ListaSimple{
             return nullptr;            
         }  
 };
+
+#endif

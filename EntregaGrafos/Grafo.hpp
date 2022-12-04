@@ -1,6 +1,7 @@
 #include "NodoGrafo.hpp"
 #include <vector>
-
+#include "Pila.hpp"
+#include <stack>
 
 template <typename T>
 class Grafo{
@@ -11,6 +12,7 @@ class Grafo{
         vector<NodoGrafo<T>*> ipQueGeneraMasFallas;
         int cantMayorFallasRecibidas;
         int cantMayorFallasGeneradas;
+
     public:
         Grafo(){
             this->tam=0;
@@ -20,6 +22,11 @@ class Grafo{
             this->cantMayorFallasRecibidas = 0;
             this->cantMayorFallasGeneradas = 0;
         }
+
+    ListaSimple<NodoGrafo<T> *> * getLista(){
+        return this -> nodos;
+    }
+        
         //buscarNodoGrafo
 
         NodoGrafo<T> * buscarNodoGrafo(T valor){
@@ -137,6 +144,38 @@ class Grafo{
             }
             cout << "\n";
 
+        }
+
+        void DepthFirst(NodoGrafo<T> * nodoG){
+            //Verificamos que el grafo tenga nodos
+            int cont = 0;
+            if(this -> nodos ->getHead()){
+                //Creo la cola
+                stack<NodoGrafo<T>*> pila;
+                pila.push(nodoG);
+                while (!pila.empty()){
+                    NodoGrafo<T> * aux = pila.top();
+                    pila.pop();
+                    if(aux->getProcesado()==false){
+                        cout << aux -> getValor() << " -> ";
+                        aux -> setProcesado(true);
+                    }
+                    NodoT<Arco<T>*> * nodeT = aux -> getArcos() -> getHead();
+                    while (nodeT){
+                        
+                        NodoGrafo<T> * vecino = this -> buscarNodoGrafo(nodeT->getDato()->getValor());
+
+                        if(vecino->getProcesado()==false){
+                            pila.push(vecino);
+                        }
+                        nodeT = nodeT -> getSiguiente();
+                    }
+                }
+                cout << endl;
+                
+            }else{
+                cout << "Grafo vacio" << endl;
+            }
         }
     
 };

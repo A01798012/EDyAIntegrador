@@ -10,6 +10,5 @@ int main(){
 
     kk.imprimirFallasGeneradas();
     kk.imprimirFallasRecibidas();
-
-
+    kk.DFS();
 }

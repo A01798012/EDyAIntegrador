@@ -10,6 +10,7 @@ class NodoGrafo{
         bool procesado;
         int cantidadFallasRecibidas;
         int cantidadFallasGeneradas;
+        
     public:
         T getValor(){return this->valor;}
         ListaSimple<Arco<T>*> * getArcos(){return this->arcos;}
