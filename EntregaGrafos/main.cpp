@@ -6,5 +6,10 @@ int main(){
     Bitacora kk;
 
     kk.leerYCrearGrafo(archivo);
+    kk.imprimirBitacora();
+
+    kk.imprimirFallasGeneradas();
+    kk.imprimirFallasRecibidas();
+
 
 }

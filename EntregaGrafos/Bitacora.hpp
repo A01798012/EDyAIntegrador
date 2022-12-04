@@ -27,6 +27,7 @@ class Bitacora{
                 if(datos.eof()) break;
                 this->grafoDeIps->insertarNodoGrafo(ipOrigen);
                 this->grafoDeIps->insertarNodoGrafo(ipDestino);
+                this->grafoDeIps->agregarArcoAlt(ipOrigen, ipDestino);
             }
 
             datos.close();
@@ -34,6 +35,16 @@ class Bitacora{
 
 
     }
+        void imprimirBitacora(){
+            this->grafoDeIps->imprimirGrafo();
+        }
+
+        void imprimirFallasRecibidas(){
+            this->grafoDeIps->imprimirMasFallasRecibidas();
+        }
+        void imprimirFallasGeneradas(){
+            this->grafoDeIps->imprimirMasFallasGeneradas();
+        }
 
 
 
