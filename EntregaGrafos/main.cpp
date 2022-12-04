@@ -2,7 +2,7 @@
 
 
 int main(){
-    string archivo = "bitacoraTest1.txt";
+    string archivo = "bitacoraCompleta1.txt";
     Bitacora kk;
 
     kk.leerYCrearGrafo(archivo);
