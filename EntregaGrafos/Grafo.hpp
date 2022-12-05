@@ -1,7 +1,7 @@
 #include "NodoGrafo.hpp"
 #include <vector>
-#include "Pila.hpp"
 #include <stack>
+#include <sstream>
 
 template <typename T>
 class Grafo{
@@ -12,6 +12,29 @@ class Grafo{
         vector<NodoGrafo<T>*> ipQueGeneraMasFallas;
         int cantMayorFallasRecibidas;
         int cantMayorFallasGeneradas;
+        int mayorPesoArcos;
+
+        string obtenerColorGradiente(int peso){
+            /*En formato hex
+            DE VERDE A ROJO
+            VERDE = ARCO CON PESO DE 1
+            ROJO = ARCO CON MAYOR PESO*/
+
+            float inicioGradiente[3] = {0, 255, 0};
+            float finalGradiente[3] = {255, 0, 0};
+
+            float porcentaje = float(peso) / float(this->mayorPesoArcos);
+            float porcentajeInverso = 1 - porcentaje;
+            int r, g, b;
+            r = (porcentaje * finalGradiente[0]) + (porcentajeInverso * inicioGradiente[0]);
+            g = (porcentaje * finalGradiente[1]) + (porcentajeInverso * inicioGradiente[1]);
+            b = (porcentaje * finalGradiente[2]) + (porcentajeInverso * inicioGradiente[2]);
+
+            // Conversión a hex
+            char hexColor[8];
+            snprintf(hexColor, 8, "#%02x%02x%02x", r, g, b);
+            return hexColor;
+        }
 
     public:
         Grafo(){
@@ -21,15 +44,16 @@ class Grafo{
             this->ipQueGeneraMasFallas = {};
             this->cantMayorFallasRecibidas = 0;
             this->cantMayorFallasGeneradas = 0;
+            this->mayorPesoArcos = 0;
         }
 
-    ListaSimple<NodoGrafo<T> *> * getLista(){
-        return this -> nodos;
-    }
+        ListaSimple<NodoGrafo<T> *> * getLista(){
+            return this -> nodos;
+        }
         
         //buscarNodoGrafo
-
         NodoGrafo<T> * buscarNodoGrafo(T valor){
+            //Complejidad O(n)
             NodoT<NodoGrafo<T>*> * actual= this->nodos->getHead();
             while(actual){
                 //Busqueda del valor dentro de los NodoT
@@ -42,6 +66,8 @@ class Grafo{
 
         //insertarNodoGrafo
         void insertarNodoGrafo(T valor){
+            // Complejidad O(n) por la búsqueda del nodo
+            // O(1) la acción de insertar el nodo
             //Si el nodo no existe
             if(!this->buscarNodoGrafo(valor)){
                 this->nodos->agregarInicio(new NodoGrafo<T>(valor));
@@ -50,17 +76,8 @@ class Grafo{
 //                cout<<"Nodo existente"<<endl;
         }
 
-        //AgregarArco
-        void agregarArco(T valorNodoOrigen, T valorNodoDestino, int peso){
-            //Validar la existencia de los nodos origen y destino
-            NodoGrafo<T> * origen=this->buscarNodoGrafo(valorNodoOrigen);
-            NodoGrafo<T> * destino=this->buscarNodoGrafo(valorNodoDestino);
-            if(origen&&destino)
-                origen->getArcos()->agregarInicio(new Arco<T>(valorNodoDestino,peso));
-            else    
-                cout<<"Ambos nodos origen y destino deben de existir"<<endl;
-        }
-        void agregarArcoAlt(T valorNodoOrigen, T valorNodoDestino){
+        void agregarArco(T valorNodoOrigen, T valorNodoDestino){
+            // Complejidad O(nxm)
             NodoGrafo<T> * origen=this->buscarNodoGrafo(valorNodoOrigen);
             NodoGrafo<T> * destino=this->buscarNodoGrafo(valorNodoDestino);
             NodoT<Arco<T>*>* arcosOrigen = origen->getArcos()->getHead();
@@ -73,11 +90,15 @@ class Grafo{
                 arcosOrigen = arcosOrigen->getSiguiente();
             }
             if(!arcoNuevo){
-                //arcoNuevo = new Arco<T>(valorNodoDestino, 1);
-                origen->getArcos()->agregarInicio(new Arco<T>(valorNodoDestino, 1));
+                arcoNuevo = new Arco<T>(valorNodoDestino, 1);
+                origen->getArcos()->agregarInicio(arcoNuevo);
             }else{
                 arcoNuevo->setPeso(arcoNuevo->getPeso() + 1);
             }
+
+            if (arcoNuevo->getPeso() > this->mayorPesoArcos)
+                this->mayorPesoArcos = arcoNuevo->getPeso();
+
             origen->setCantidadFallasGeneradas(origen->getCantidadFallasGeneradas()+1);
             destino->setCantidadFallasRecibidas(destino->getCantidadFallasRecibidas()+1);
             //cout << "o: " << origen->getValor() << "=" << origen->getCantidadFallasGeneradas() << " d: " << destino->getValor() << "="<< destino->getCantidadFallasRecibidas() << endl;
@@ -98,28 +119,11 @@ class Grafo{
 
         }
 
-        //Imprimir grafo
-        /*
         void imprimirGrafo(){
-            NodoT<NodoGrafo<T>*> * actual = this->nodos->getHead();
-            while(actual){
-                cout << actual->getDato()->getValor() << ": ";
-                ListaSimple<Arco<T>*>* arcosActuales = actual->getDato()->getArcos();
-                NodoT<Arco<T>*>* lista = arcosActuales->getHead();
-                while(lista){
-                    cout << lista->getDato()->getValor() << "->";
-                    lista = lista->getSiguiente();
-                }
-                cout << endl;
-                actual = actual->getSiguiente();
-            }
-        }
-        */
-
-        void imprimirGrafo(){
+            // Complejidad O(nxm)
             NodoT<NodoGrafo<T>*>* actual = nodos->getHead();
             while(actual){
-                cout << actual->getDato()->getValor() << "->";
+                cout << actual->getDato()->getValor() << ": ";
                 NodoT<Arco<T>*>*lista = actual->getDato()->getArcos()->getHead();
                 while(lista){
                     cout << lista->getDato()->getValor() << "[" << lista->getDato()->getPeso()<<"]" << "->";
@@ -131,6 +135,7 @@ class Grafo{
         }
 
         void imprimirMasFallasGeneradas(){
+            // Complejidad O(1)
             cout << "El maximo numero de fallas generadas fue " << this->cantMayorFallasGeneradas <<" por:  ";
             for(NodoGrafo<T>* nodo: this->ipQueGeneraMasFallas){
                 cout << nodo->getValor() << " ";
@@ -138,6 +143,7 @@ class Grafo{
             cout << "\n";
         }
         void imprimirMasFallasRecibidas(){
+            // Complejidad O(1)
             cout << "El maximo numero de fallas recibidas fue " << this->cantMayorFallasRecibidas << " en: ";
             for(NodoGrafo<T>* nodo: this->ipQueRecibenMasFallas){
                 cout << nodo->getValor() << " ";
@@ -146,19 +152,23 @@ class Grafo{
 
         }
 
-        void DepthFirst(NodoGrafo<T> * nodoG){
+        string DepthFirst(NodoGrafo<T> * nodoG){
+            // Complejidad O(n)
+            string recorrido = "";
+
             //Verificamos que el grafo tenga nodos
             int cont = 0;
             if(this -> nodos ->getHead()){
-                //Creo la cola
+                //Creo la pila
                 stack<NodoGrafo<T>*> pila;
                 pila.push(nodoG);
                 while (!pila.empty()){
                     NodoGrafo<T> * aux = pila.top();
                     pila.pop();
                     if(aux->getProcesado()==false){
-                        cout << aux -> getValor() << " -> ";
-                        aux -> setProcesado(true);
+                        //Tostring
+                        recorrido += aux->getValor() + " -> ";
+                        aux->setProcesado(true);
                     }
                     NodoT<Arco<T>*> * nodeT = aux -> getArcos() -> getHead();
                     while (nodeT){
@@ -171,11 +181,48 @@ class Grafo{
                         nodeT = nodeT -> getSiguiente();
                     }
                 }
-                cout << endl;
-                
+                recorrido += '\n';
             }else{
-                cout << "Grafo vacio" << endl;
+                recorrido += "Grafo vacio\n";
             }
+
+            return recorrido;
         }
-    
+
+        string obtenerVisualGrafoDot(){
+            // Complejidad O(nxm)
+            /*Función para obtener un código .dot para generar un visual del gráfico
+            devuelve un string con el código*/
+
+            string codigo = "digraph G {\n";
+
+            for(NodoGrafo<T>* nodo: this->ipQueRecibenMasFallas){
+                codigo += "\"" + nodo->getValor() + "\" [height=1.5 width=1.5 shape=doublecircle color=blue];" + "\n";
+            }
+
+            for(NodoGrafo<T>* nodo: this->ipQueGeneraMasFallas){
+                codigo += "\"" + nodo->getValor() + "\" [height=1.5 width=1.5 shape=doubleoctagon color=purple];" + "\n";
+            }
+
+
+            NodoT<NodoGrafo<T> *> *actual = nodos->getHead();
+            while (actual)
+            {
+                string ipOrigen = actual->getDato()->getValor();
+                NodoT<Arco<T> *> *lista = actual->getDato()->getArcos()->getHead();
+                while (lista)
+                {
+                    string ipDestino = lista->getDato()->getValor();
+                    int pesoArco = lista->getDato()->getPeso();
+                    string colorArco = obtenerColorGradiente(pesoArco);
+                    codigo += "\"" + ipOrigen + "\"" + " -> " + "\"" + ipDestino + "\" [" + "color=\"" + colorArco + "\"];" + "\n";
+                    lista = lista->getSiguiente();
+                }
+                actual = actual->getSiguiente();
+            }
+
+            codigo += '}';
+
+            return codigo;
+        }
 };
