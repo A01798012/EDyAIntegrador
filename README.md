@@ -1,4 +1,4 @@
-<div align="centr">
+<div align="center">
 # THIRD SEMESTER SCHOOL PROJECTS AND HOMEWORKS OF DATA STRUCTURES AND ALGORITHMS
 </div>
 
